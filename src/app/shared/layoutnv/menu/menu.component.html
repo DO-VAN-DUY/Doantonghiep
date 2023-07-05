@@ -1,0 +1,24 @@
+<div class="be-left-sidebar">
+    <div class="left-sidebar-wrapper"><a class="left-sidebar-toggle" href="#"></a>
+        <div class="left-sidebar-spacer">
+            <div class="left-sidebar-scroll">
+                <div class="left-sidebar-content">
+                    <ul class="sidebar-elements">
+                      
+                        <div class="wrapper">
+                            <nav class="menu">
+                                <ul class="clearfix">
+                                    <li *ngFor="let mn of menus; first as isFirst" [ngClass]="{'active':isFirst}">
+                                        <a routerLink="{{mn.link}}" ><i class="fas fa-user-check"></i>{{mn.tenMenu}}<span class="arrow"></span></a>
+                                    </li>
+                                    </ul>
+                            </nav>
+                        </div>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

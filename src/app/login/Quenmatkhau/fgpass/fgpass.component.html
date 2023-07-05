@@ -1,0 +1,30 @@
+<div id="particles-js">
+    <form name="formLogin" #fgpassForm="ngForm">
+        <div class="form-box">
+            <div class="header-text">
+                Quên mật khẩu
+            </div>
+           <div *ngIf="isLoad">
+            <input name="email" [(ngModel)]="emailcu.email" #email="ngModel"  placeholder="Nhập email..." type="email" id="account"   >
+            <small *ngIf="isNot" style="color: rgb(222, 17, 17);" class="help-block">This email does not exist!</small>
+              <!-- (email?.dirty || email?.touched) đang nhập hoặc chạm vào thì mới báo lỗi -->
+           </div>
+         <div *ngIf="isLoading">
+            <div>
+                <input name="password" [(ngModel)]="pass.password" #password="ngModel"  placeholder="Nhập mật khẩu mới..." type="password" id="account"   >
+               </div>
+               <div>
+                <input name="passwordlm" [(ngModel)]="pass.passwordlm" #passwordlm="ngModel"   placeholder="Nhập lại mật khẩu mới..." type="password" id="account"   >  
+               </div>
+         </div>
+          
+            <button type="submit" *ngIf="isLoad"(click)="Xacnhan()" name="submit">Xác nhận</button>
+            <button type="submit" *ngIf="isLoading" (click)="Editpass()" name="submit">Xác nhận</button>
+           <div class="col-sm-12" >
+            <a class="col-sm-6" [routerLink]="['/login']" routerLinkActive="router-link-active" >Đăng nhập</a>
+            <a class="col-sm-6" [routerLink]="['/register']" style="padding-left: 35%;" class="reset_pass">Đăng ký</a>
+           </div>
+            
+        </div>
+    </form>
+</div>

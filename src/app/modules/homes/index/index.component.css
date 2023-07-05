@@ -1,0 +1,32 @@
+#Test
+{
+    display: block;
+}
+#myAreaChart{
+    width:300px;
+}
+
+
+#Lack
+{
+    height:250px;
+    overflow:auto;
+}
+#Enough{
+    height:250px;
+    overflow:auto;
+}
+#employees
+{
+    height:250px;
+    overflow:auto;
+}
+#Unpaid
+{
+    height:250px;
+    overflow:auto;
+}
+#test
+{
+    overflow: inherit;
+}

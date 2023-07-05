@@ -1,0 +1,52 @@
+<div id="particles-js">
+    <form id="ResForm" (ngSubmit)="res()" #ResForm="ngForm">
+        <div class="form-box">
+            <div class="header-text" style="color: #dd0808;">
+                Đăng ký
+            </div>
+           <div>
+            <input name="name"  [(ngModel)]="model.name" #name="ngModel" placeholder="Nhập tên ..." type="text" id="accounts"  required>
+               <small *ngIf="!name.valid && (name?.dirty || name?.touched)" class="help-block">Name is invalid or empty!</small>
+           </div>
+           <div >
+            <input name="email" [(ngModel)]="model.email" #email="ngModel" type="email"  placeholder="Nhập email..."  required>
+              <small *ngIf="!email.valid && (email?.dirty || email?.touched) " class="help-block">Email is invalid or empty!</small>
+           </div>
+           <div>
+            <input name="sdt"  [(ngModel)]="model.sdt" #sdt="ngModel" placeholder="Nhập số điện thoại..." type="text" id="accounts"  required>
+               <small *ngIf="!sdt.valid && (sdt?.dirty || sdt?.touched)" class="help-block">SDT is invalid or empty!</small>
+           </div>
+           <div>
+            <input name="diachi"  [(ngModel)]="model.diachi" #diachi="ngModel" placeholder="Nhập tên địa chỉ..." type="text" id="accounts"  required>
+               <small *ngIf="!diachi.valid && (diachi?.dirty || diachi?.touched)" class="help-block">Addres is invalid or empty!</small>
+              
+           </div>
+           <div>
+            <select class="form-control selectric" #gioitinh="ngModel" name="gioitinh" [(ngModel)]="model.gioitinh" required>
+                <option value="">--Chọn giới tính--</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+              </select>
+              <small *ngIf="!gioitinh?.valid && (gioitinh?.dirty||gioitinh.touched)"class="help-block">giới tính không hợp lệ !</small>
+              
+           </div>
+           <div>
+            <input name="taikhoan"  [(ngModel)]="model.taikhoan" #taikhoan="ngModel" placeholder="Nhập tài khoản..." type="text" id="accounts"  required>
+               <small *ngIf="!taikhoan.valid && (taikhoan?.dirty || taikhoan?.touched)" class="help-block">Taikhoan is invalid or empty!</small>
+              
+           </div>
+           <div >
+            <input name="password"[(ngModel)]="model.password" #password="ngModel" type="password"  placeholder="Nhập password."  required>
+              <small *ngIf="!password.valid && (password?.dirty || password?.touched) " class="help-block">Password is invalid or empty!</small>
+           </div>
+            <button type="submit" name="submit">Đăng ký</button>
+           <div class="col-sm-12" >
+            <a class="col-sm-6" [routerLink]="['/login']" routerLinkActive="router-link-active"  >Đăng nhập</a>
+            <a class="col-sm-6" [routerLink]="['/quenmatkhau']" style="padding-left: 35%;" class="reset_pass" href="">Quên mật khẩu</a>
+           </div>
+            
+        </div>
+    </form>
+</div>
+ 
+ 

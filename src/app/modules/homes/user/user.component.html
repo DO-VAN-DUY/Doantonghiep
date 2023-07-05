@@ -1,0 +1,322 @@
+<div class="be-content">
+    <div class="page-head">
+        <!-- <h2 class="page-head-title">Data Tables</h2> -->
+        <div class="col-12 col-md-12 col-lg-12">
+          <div class="row" style="padding:10px; border-width: 1px;">
+            <div class="col-12" >
+              <div class="page-title-box" >
+                  <div class="page-title-right">
+                      <ol class="breadcrumb m-0">
+                          <li class="breadcrumb-item"><a [routerLink]="['/homes/chinhanh']" >Homes</a></li>
+                          <li class="breadcrumb-item"><a [routerLink]="['/homes/users']">users</a></li>
+                         
+                      </ol>
+                  </div>
+                 
+              </div>
+          </div>
+            </div>
+
+            <!-- <button type="button" class="btn btn-success"><a style="color:white;" name="save" href="{{ route('admin.tinhluong') }}"> Tính lương</a> </button> -->
+            
+          <div style="padding:15px;"> 
+             <button type="button" class="btn btn-success" (click)="openModel(true,null)"><a style="color:white;" name="save">Thêm bản ghi </a> </button>
+            </div>
+            <div class="row">
+	
+            </div>
+              <div class="col-12 col-md-12 col-lg-12" style="margin-top: 35px;height: 45px;">
+                  
+              
+               <div style="padding-left:60%; margin-top:-35px;">
+                Hiển thị &nbsp;<label class="mr-3"><select class="custom-select" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+                  <option [ngValue]="1">1 </option>
+                  <option [ngValue]="5">5 </option>
+                  <option [ngValue]="8">8 </option>
+                  <option [ngValue]="10">10 </option> 
+                  <option [ngValue]="15">15 </option>
+              </select></label>
+                Tổng số &nbsp;<ins ng-bind="totalItems" class="text-info"></ins>&nbsp; bản ghi
+                
+                <input type="text"  [(ngModel)]="filterBy" style="border:none;width:200px;"placeholder="Tìm kiếm theo tên..."> &nbsp;
+               </div>
+              <div style="padding-left:78%; margin-top:-45px;">
+                <ul class="navbar-nav mr-3">   
+                  <li>
+                      <form class="form-inline mr-auto"  #Formnhanvien="ngForm" (ngSubmit)="LoadData()" >
+                          <div class="search-element">
+                              <input class="form-control" #name="ngModel" name="name" [(ngModel)]="model.name" type="search" placeholder="Nhập thông tin tìm kiếm........" aria-label="Search"
+                             >
+                                  &nbsp;&nbsp;
+                              <button class="btn btn-success" style="margin-top: -3px;" type="submit">
+                                  <i class="fas fa-search"></i>
+                              </button>
+                          </div>
+                      </form>
+                  </li>
+              </ul>
+              </div>
+                
+         </div>
+    
+    <div class="idin-content container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <!-- <table class="table table-striped table-hover table-fw-widget" id="table1"> -->
+                        <table class="table table-striped table-hover table-fw-widget">
+                            <thead>
+                                <tr style="background-color: aquamarine;"> 
+                                  <th>STT</th>
+                                    <th>Tên tài khoản</th>
+                                    
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Email</th>
+                                   
+                                    
+                                    
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr *ngFor="let it of list_item; let i= index">
+                                     <td>{{++i+1}}</td>
+                                    <td>{{it.name}}</td>
+                                    <td>{{it.sdt}}</td>
+                                    <td>{{it.diachi}}</td>
+                                    <td>{{it.email}}</td>
+                                  
+                                   
+                                 
+                                    <td> <button data-toggle="modal" data-target=".bd-example-modal-lg" title="Sửa" (click)="openModel(false,it)"
+                                        class="btn btn-icon btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button title="Xóa" (click)="DeleteModel(it.id)"style="color: #fff" class="btn btn-icon btn-warning"> 
+                                        <i class="fas fa-trash-alt"></i>
+                                        </button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-between p-2">
+                          <ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+                          </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="largeModal">
+  <div class="modal-dialog modal-lg">
+<form name="formLogin" (ngSubmit)="users()" #Formuser="ngForm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" *ngIf="!isEdit"><span>Thêm tài khoản</span></h5>
+        <h5 class="modal-title" *ngIf="isEdit"><span>Sửa tài khoản</span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="form-group row mb-4">
+          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Tên tài khoản<span style="color:red ;">*</span>:
+          </label>
+          <div class="col-sm-12 col-md-7">
+            <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="model.name"  placeholder="Nhập tên tài khoản..."  id="accounts"  required>
+            <small *ngIf="!name.valid && (name?.dirty || name?.touched)" class="help-block">Name is invalid or empty!</small>
+          </div>
+      </div>
+      <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+        Email<span style="color:red ;">*</span>:
+        </label>
+        <div class="col-sm-12 col-md-7">
+          <input type="email" class="form-control" #email="ngModel" placeholder="Nhập email..." [(ngModel)]="model.email" name="email"  required>
+          <small *ngIf="!email?.valid && (email?.dirty||email.touched)"class="help-block">email không hợp lệ !</small>
+        </div>
+    </div>
+      <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+              Điện thoại<span style="color:red ;">*</span>:
+            </label>
+            <div class="col-sm-12 col-md-7">
+              <input type="text" class="form-control" #sdt="ngModel" placeholder="Nhập số điện thoại..." [(ngModel)]="model.sdt" pattern="^(0[35789][0-9]{8})$" name="sdt"
+                required>
+                <small *ngIf="!sdt?.valid && (sdt?.dirty||sdt.touched)"class="help-block">Số điện thoại không hợp lệ !</small>
+            </div>
+          </div>
+          <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Địa chỉ :
+            </label>
+            <div class="col-sm-12 col-md-7">
+              <input type="text" class="form-control" #diachi="ngModel" placeholder="Nhập địa chỉ..." [(ngModel)]="model.diachi" name="diachi"  required>
+              <small *ngIf="!diachi?.valid && (diachi?.dirty||diachi.touched)"class="help-block">Địa chỉ không hợp lệ !</small>
+            </div>
+        </div>
+         
+        <div class="form-group row mb-4">
+          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+          Giới tính<span style="color:red ;">*</span>:
+          </label>
+        
+          <div class="col-sm-12 col-md-7">
+            <select class="form-control selectric" #gioitinh="ngModel"  name="gioitinh" [(ngModel)]="model.gioitinh" required>
+              <option value="">--Chọn giới tính--</option>
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+            </select>
+            <small *ngIf="!gioitinh?.valid && (gioitinh?.dirty||gioitinh.touched)"class="help-block">Giới tính không hợp lệ !</small>
+          </div>
+      </div>
+      <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+          Tài khoản<span style="color:red ;">*</span>:
+        </label>
+        <div class="col-sm-12 col-md-7">
+          <input type="text" name="taikhoan"  class="form-control" [(ngModel)]="model.taikhoan" #taikhoan="ngModel" placeholder="Nhập tài khoản..."  id="accounts"  required>
+          <small *ngIf="!taikhoan.valid && (taikhoan?.dirty || taikhoan?.touched)" class="help-block">Taikhoan is invalid or empty!</small>
+        </div>
+    </div>
+    
+    <div class="form-group row mb-4">
+      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+          Password<span style="color:red ;">*</span>:
+      </label>
+      <div class="col-sm-12 col-md-7">
+        <input name="password" class="form-control" [(ngModel)]="model.password" #password="ngModel" type="password"  placeholder="Nhập password."  required minlength="6" maxlength="255">
+      <small *ngIf="!password.valid && (password?.dirty || password?.touched) " class="help-block">Password is invalid or empty!</small>
+      </div>
+  </div>
+  
+          <div class="text-right">
+            <button type="button" class="btn btn-secondary" (click)="closeModalsss()" data-dismiss="modal">Close</button> &nbsp;
+            <button type="submit" class="btn btn-icon icon-left btn-success" [disabled]="loading" *ngIf="!isEdit" (click)="Adduser()" id="btnSubmit" >
+              <i class="fas fa-check"></i>
+              <span>Saves</span>
+            </button>
+            <button type="submit" class="btn btn-icon icon-left btn-success"  *ngIf="isEdit" (click)="Edituser()" id="btnSubmit" >
+              <i class="fas fa-check"></i>
+              <span>Save</span>
+            </button>
+          </div>
+      </div>
+     
+    </div>
+</form>
+ </div>
+</div>
+
+<!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="largeModal">
+  <div class="modal-dialog modal-lg">
+    <form name="formLogin" (ngSubmit)="users()" #Formuser="ngForm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" *ngIf="!isEdit"><span>Thêm tài khoản</span></h5>
+          <h5 class="modal-title" *ngIf="isEdit"><span>Cập nhập tài khoản</span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">          
+        <div class="form-group row mb-4">
+          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Tên tài khoản<span style="color:red ;">*</span>:
+          </label>
+          <div class="col-sm-12 col-md-7">
+            <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="model.name"  placeholder="Nhập tên tài khoản..."  id="accounts"  required>
+            <small *ngIf="!name.valid && (name?.dirty || name?.touched)" class="help-block">Name is invalid or empty!</small>
+          </div>
+      </div>
+           
+       
+        <div class="form-group row mb-4">
+          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+          Email<span style="color:red ;">*</span>:
+          </label>
+          <div class="col-sm-12 col-md-7">
+            <input type="email" class="form-control" #email="ngModel" placeholder="Nhập email..." [(ngModel)]="model.email" name="email"  required>
+            <small *ngIf="!email?.valid && (email?.dirty||email.touched)"class="help-block">email không hợp lệ !</small>
+          </div>
+      </div>
+        <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                Điện thoại<span style="color:red ;">*</span>:
+              </label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" #sdt="ngModel" placeholder="Nhập số điện thoại..." [(ngModel)]="model.sdt" pattern="^(0[35789][0-9]{8})$" name="sdt"
+                  required>
+                  <small *ngIf="!sdt?.valid && (sdt?.dirty||sdt.touched)"class="help-block">Số điện thoại không hợp lệ !</small>
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+              Địa chỉ :
+              </label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" #diachi="ngModel" placeholder="Nhập địa chỉ..." [(ngModel)]="model.diachi" name="diachi"  required>
+                <small *ngIf="!diachi?.valid && (diachi?.dirty||diachi.touched)"class="help-block">Địa chỉ không hợp lệ !</small>
+              </div>
+          </div>
+           
+          <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Giới tính<span style="color:red ;">*</span>:
+            </label>
+          
+            <div class="col-sm-12 col-md-7">
+              <select class="form-control selectric" #gioitinh="ngModel"  name="gioitinh" [(ngModel)]="model.gioitinh" required>
+                <option value="">--Chọn giới tính--</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+              </select>
+              <small *ngIf="!gioitinh?.valid && (gioitinh?.dirty||gioitinh.touched)"class="help-block">Giới tính không hợp lệ !</small>
+            </div>
+        </div>
+        <div class="form-group row mb-4">
+          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Tài khoản<span style="color:red ;">*</span>:
+          </label>
+          <div class="col-sm-12 col-md-7">
+            <input type="text" name="taikhoan"  class="form-control" [(ngModel)]="model.taikhoan" #taikhoan="ngModel" placeholder="Nhập tài khoản..."  id="accounts"  required>
+            <small *ngIf="!taikhoan.valid && (taikhoan?.dirty || taikhoan?.touched)" class="help-block">Taikhoan is invalid or empty!</small>
+          </div>
+      </div>
+      
+      <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Password<span style="color:red ;">*</span>:
+        </label>
+        <div class="col-sm-12 col-md-7">
+          <input name="password" class="form-control" [(ngModel)]="model.password" #password="ngModel" type="password"  placeholder="Nhập password."  required minlength="6" maxlength="255">
+        <small *ngIf="!password.valid && (password?.dirty || password?.touched) " class="help-block">Password is invalid or empty!</small>
+        </div>
+    </div>
+    
+          
+     <div class="text-right">
+      <button type="submit" class="btn btn-icon icon-left btn-success" [disabled]="loading" *ngIf="!isEdit" (click)="Adduser()" id="btnSubmit" >
+        <i class="fas fa-check"></i>
+        <span>Saves</span>
+      </button>
+      <button type="submit" class="btn btn-icon icon-left btn-success"  *ngIf="isEdit" (click)="Edituser()" id="btnSubmit" >
+        <i class="fas fa-check"></i>
+        <span>Save</span>
+      </button>
+    </div>
+    
+      </div>
+    </div>
+  </form>
+  </div>
+  </div> -->

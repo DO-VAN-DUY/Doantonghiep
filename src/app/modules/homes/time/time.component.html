@@ -1,0 +1,19 @@
+<div id="particles-js">
+    <form name="formLogin" #Form="ngForm">
+        <div class="form-box">
+            <div class="header-text" style="color: #fff;">
+                Thời gian làm việc 
+            </div>
+           <div>
+            <!-- <input value="{{it.giovao|date : 'mediumTime' }}"  name="txt_giovao"  type="datetime" required >    -->
+            <input type="datetime" #giovao="ngModel" name="giovao" [(ngModel)]="Time.giovao" >
+           </div>
+           <div >
+            <!-- <input value="{{it.giora |date : 'mediumTime' }}" name="txt_giora"  type="datetime" required>    -->
+            <input type="datetime" #giora="ngModel" name="giora" [(ngModel)]="Time.giora" >
+           </div>
+            <button type="submit" name="submit"  (click)="time()">Save</button>  
+        </div>
+    </form>
+</div>
+

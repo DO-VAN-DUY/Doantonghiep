@@ -1,0 +1,1125 @@
+<div class="be-content">
+    <div class="page-head">
+       
+        <div class="col-12 col-md-12 col-lg-12">
+<div class="row" style="padding:10px; border-width: 1px;">
+	<div class="col-12" >
+    <div class="page-title-box" >
+        <div class="page-title-right">
+            <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a [routerLink]="['/homes/chinhanh']" >Homes</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="['/homes/nhanvien']">nhanvien</a></li>
+               
+            </ol>
+        </div>
+       
+    </div>
+</div>
+	</div>
+          
+            
+          <div style="padding:15px;">
+            <button type="button" class="btn btn-success" (click)="openModel()"><a style="color:white;" name="save">Thêm bản ghi </a></button>
+          </div>
+            <div class="row">
+	
+            </div>
+              <div class="col-12 col-md-12 col-lg-12" style="margin-top: 25px;height: 45px;">
+                  
+              
+               <div style="padding-left:60%; margin-top:-35px;">
+                Hiển thị &nbsp;<label class="mr-3"><select class="custom-select" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+                  <option [ngValue]="1">1 </option>
+                  <option [ngValue]="5">5 </option>
+                  <option [ngValue]="8">8 </option>
+                  <option [ngValue]="10">10 </option> 
+                  <option [ngValue]="15">15 </option>
+              </select></label>
+                Tổng số &nbsp;<ins ng-bind="totalItems" class="text-info"></ins>&nbsp; bản ghi
+                
+                <!-- <input type="text"  [(ngModel)]="filterBy" style="border:none;width:200px;"placeholder="Tìm kiếm theo tên..."> &nbsp; -->
+                
+               </div>
+               <div style="padding-left:78%; margin-top:-45px;">
+                <ul class="navbar-nav mr-3">
+                      
+                  <li>
+                      <form class="form-inline mr-auto"  #Formnhanvien="ngForm" (ngSubmit)="LoadData()" >
+                          <div class="search-element">
+                              <input class="form-control" #hoten="ngModel" name="hoten" [(ngModel)]="nhanvien.hoten" type="search" placeholder="Nhập thông tin tìm kiếm........" aria-label="Search"
+                               >
+                                  &nbsp;&nbsp;
+                              <button class="btn btn-success" style="margin-top: -3px;" type="submit">
+                                  <i class="fas fa-search"></i>
+                              </button>
+                          </div>
+                      </form>
+                  </li>
+              </ul>
+               </div>
+              
+                </div>
+             <!-- </div> -->
+         </div>
+
+    </div>
+    <div class="idin-content container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-header">
+                    </div>
+
+                    <div class="card-body">
+                        <table class="table table-striped table-hover table-fw-widget">
+                            <thead>
+                                <tr style="background-color: aquamarine;">                                  
+                                  <th>STT</th>
+                                    <!-- <th>Tên tổ nhóm</th> -->
+                                    <th>Tên nhân viên</th>
+                                    <th>Địa chỉ</th>       
+                                    <th>Email</th>
+                                    <th>Giới tính</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Chức vụ</th>
+                                    <th>Lương thỏa thuận</th>
+                                     <th>Ảnh đại diện</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let it of list_item| filter:filterBy; let i= index">
+                                    <td>{{++i+1}}</td> 
+                                    <!-- <td *ngFor="let its of list_tonhom">{{its.tentn}}</td>                                -->
+                                    <td>{{it.hoten}}</td>
+                                    <td>{{it.diachi}}</td>
+                                    <td>{{it.email}}</td>
+                                    <td>{{it.gioitinh}}</td>
+                                    <td>{{it.sdt}}</td>
+                                    <td>{{it.chucvu}}</td>
+                                    <td>{{it.luongthoathuan | currency:'VND'}}</td>
+                                    <td><img style="width: 50px; height: 50px;" src="/assets/img/Anhnhanvien/{{it.hinhanh}}" alt=""></td>                                
+                                                 <td id="tacvu">                                                  
+                                                  <button data-toggle="modal" data-target=".bd-example-modal-lg" title="Sửa" (click)="EditModel(it)"
+                                                  class="btn btn-icon btn-primary">
+                                                  <i class="fas fa-edit"></i>
+                                                  </button>
+                                                    <button title="Xóa" (click)="DeleteModel(it.id)" style="color: #fff" class="btn btn-icon btn-warning">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                    </button> 
+                                                    <!-- <button title="Xem" (click)="Xem(it)" style="color: #fff" class="btn btn-success">
+                                                      <i class="fa fa-eye"></i>
+                                                      </button> -->
+                                                      <!-- <button  title="Xemls" class="btn btn-danger navbar-btn" (click)="Xemls(it)" ><i class="fa fa-calendar-check-o"></i></button> -->
+                                                       <!-- <button  title="Xembaocao" (click)="Xembaocao(it)"><i class="fa fa-calendar"></i></button> -->
+                                                      <button  title="Trinhdo" class="btn btn-danger navbar-btn"(click)="Trinhdo(it)"><i class="fa fa-eye"></i></button>
+                                                </td> 
+                                             
+                                              
+                                               <!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="Trinhdo" > -->
+                                             
+                                              
+                                              
+                                             
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-between p-2">
+                          <ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+                          </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="largeModal">
+<div class="modal-dialog modal-lg">
+  <form name="formLogin" (ngSubmit)="nhanviens()" #Formnhanvien="ngForm">
+  <div class="modal-content">
+    <div class="modal-header" style="background-color:rgb(197, 238, 224);">
+      <h5 class="modal-title" *ngIf="!isEdit"><span><b>Thêm nhân viên</b></span></h5>
+      <h5 class="modal-title" *ngIf="isEdit"><span><b>Sửa nhân viên</b></span></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+              <!-- <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                  Tên phòng ban<span style="color:red ;">*</span>:
+                </label>
+                <div class="col-sm-12 col-md-7">
+                  <select class="form-control" #idpb="ngModel" name="idpb" [(ngModel)]="nhanvien.idpb" required>
+                    <option value="">--Chọn tên phòng ban--</option>  
+                    <option *ngFor="let it of list_phongban" value="{{it.id}}">{{it.tenpb}}</option>
+                    <small *ngIf="!idtn?.valid && (idtn?.dirty||idtn.touched)"class="help-block">Tên tài khoản không hợp lệ !</small>
+                  </select>
+              </div>   
+              
+        </div> -->
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                  Tên tổ nhóm<span style="color:red ;">*</span>:
+                </label>
+                <div class="col-sm-12 col-md-7">
+                  <select class="form-control" #idtn="ngModel" name="idtn" [(ngModel)]="nhanvien.idtn" required>
+                    <option value="">--Chọn tên tổ nhóm--</option>  
+                    <option *ngFor="let it of list_tonhom" value="{{it.id}}">{{it.tentn}}</option>
+                    <!-- <small *ngIf="!idtn?.valid && (idtn?.dirty||idtn.touched)"class="help-block">Tên tổ nhóm không hợp lệ !</small> -->
+                  </select>
+               </div>   
+              
+         </div>
+         
+      <div class="form-group row mb-4">
+          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+          Tên nhân viên<span style="color:red ;">*</span>:
+          </label>
+          <div class="col-sm-12 col-md-7">
+            <input type="text" class="form-control" #hoten="ngModel"  placeholder="Nhập họ tên nhân viên..." [(ngModel)]="nhanvien.hoten" name="hoten"  required>
+            <small *ngIf="!hoten?.valid && (hoten?.dirty||hoten.touched)"class="help-block">Tên nhân viên không hợp lệ !</small>
+          </div>
+      </div>
+      <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+        Email<span style="color:red ;">*</span>:
+        </label>
+        <div class="col-sm-12 col-md-7">
+          <input type="text" class="form-control" #email="ngModel" placeholder="Nhập email..." [(ngModel)]="nhanvien.email" name="email"  required>
+          <small *ngIf="!email?.valid && (email?.dirty||email.touched)"class="help-block">email không hợp lệ !</small>
+        </div>
+    </div>
+      <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+              Điện thoại<span style="color:red ;">*</span>:
+            </label>
+            <div class="col-sm-12 col-md-7">
+              <input type="text" class="form-control" #sdt="ngModel" placeholder="Nhập số điện thoại..." [(ngModel)]="nhanvien.sdt" pattern="^(0[35789][0-9]{8})$" name="sdt"
+                required>
+                <small *ngIf="!sdt?.valid && (sdt?.dirty||sdt.touched)"class="help-block">Số điện thoại không hợp lệ !</small>
+            </div>
+          </div>
+          <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Địa chỉ <span style="color:red ;">*</span>:
+            </label>
+            <div class="col-sm-12 col-md-7">
+              <input type="text" class="form-control" #diachi="ngModel" placeholder="Nhập địa chỉ..." [(ngModel)]="nhanvien.diachi" name="diachi"  required>
+              <small *ngIf="!diachi?.valid && (diachi?.dirty||diachi.touched)"class="help-block">Địa chỉ không hợp lệ !</small>
+            </div>
+        </div>
+          <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Chức vụ<span style="color:red ;">*</span>:
+            </label>
+            <div class="col-sm-12 col-md-7">
+              <!-- <input type="text" class="form-control" #chucvu="ngModel" placeholder="Nhập chức vụ..." [(ngModel)]="nhanvien.chucvu" name="chucvu"  required> -->
+              <select class="form-control selectric" #chucvu="ngModel"  name="chucvu" [(ngModel)]="nhanvien.chucvu" required >
+                <option value="">--Chọn chức vụ--</option>
+                <option value="Nhân viên">Nhân viên</option>
+                <option value="Trưởng nhóm">Trưởng nhóm</option>
+                <option value="Phó phòng">Phó phòng</option>
+                <option value="Trưởng phòng">Trưởng phòng</option>
+                <option value="Phó giám đốc">Phó giám đốc</option>
+                <option value="Giám đốc">Giám đốc</option>
+              </select>
+              <small *ngIf="!chucvu?.valid && (chucvu?.dirty||chucvu.touched)"class="help-block">Chức vụ không hợp lệ !</small>
+            </div>
+        </div>
+        <div class="form-group row mb-4">
+          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+          Giới tính<span style="color:red ;">*</span>:
+          </label>
+        
+          <div class="col-sm-12 col-md-7">
+            <select class="form-control selectric" #gioitinh="ngModel"  name="gioitinh" [(ngModel)]="nhanvien.gioitinh" required>
+              <option value="">--Chọn giới tính--</option>
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+            </select>
+            <small *ngIf="!gioitinh?.valid && (gioitinh?.dirty||gioitinh.touched)"class="help-block">Giới tính không hợp lệ !</small>
+          </div>
+      </div>
+
+    
+  <div class="form-group row mb-4">
+    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+    Lương thỏa thuận<span style="color:red ;">*</span>:
+    </label>
+    <div class="col-sm-12 col-md-7">
+      <input type="number" class="form-control" #luongthoathuan="ngModel" placeholder="Nhập lương thỏa thuận..." [(ngModel)]="nhanvien.luongthoathuan" name="luongthoathuan"  required>
+      <small *ngIf="!luongthoathuan?.valid && (luongthoathuan?.dirty||luongthoathuan.touched)"class="help-block">Lương thỏa thuận không hợp lệ !</small>
+    </div>
+   </div>
+   <div class="form-group row mb-4">
+    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+    Ảnh đại diện :
+    </label>
+    <div class="col-sm-12 col-md-7">
+        <a href="#"><img
+           *ngIf="imageSrc" [src]="imageSrc||null"
+            style="width: 58px; height: 58px;" class="img-rounded" alt="upload"></a>
+        <input (change)="upload($event)"  accept=".jpg,.png,.jpeg,.gif,.bmp,.tif,.tiff"
+          type="file" class="file-styled">
+    </div>
+   
+</div>
+        <div class="text-right">
+
+            <button type="button" class="btn btn-secondary" (click)="closeModalss()" data-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-icon icon-left btn-success" (click)="closeModal()">Escape</button> -->
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+         
+          <button class="btn btn-icon icon-left btn-success" [disabled]="loading" *ngIf="!isEdit" (click)="addNhanvien()" id="btnSubmit" >
+            <i class="fas fa-check"></i>
+            <span>Saves</span>
+          </button>
+          <button class="btn btn-icon icon-left btn-success" *ngIf="isEdit" (click)="EditNhanvien()" id="btnSubmit" >
+            <i class="fas fa-check"></i>
+            <span>Save</span>
+          </button>
+        </div>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+
+<div class="modal fade" id="modal-fullscreen-xs" tabindex="-1" role="dialog" aria-hidden="true" id="Trinhdo">
+  <div class="modal-dialog modal-lg">                                         
+    <form name="formLogins" #Formnhanviens="ngForm">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:rgb(197, 238, 224);">
+          <h5 class="modal-title"><span style="color:rgb(220, 8, 8);" ><b>Hồ sơ nhân sự</b></span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      
+        <div class="modal-header">
+          
+        <h5>
+          <div class="menu-wrapper menu-gold"> 
+            <ul class="menu">
+            
+              <li>
+              <b style="text-decoration: underline;cursor:pointer">Hồ sơ</b>
+                <ul>
+                  <li  (click)="Xem()"> <b>Hồ sơ</b></li>
+                  <li  (click)="Showcv()"><b>Hợp đồng</b></li>
+                  <li (click)="phucap()"> <b>Phụ cấp</b></li>
+                  <li (click)="bacluong()"><b>Bậc lương</b></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          </h5>
+          <h5><span style="text-decoration: underline;cursor:pointer" (click)="Showtd()"><b >Trình độ</b></span></h5>
+          <h5>
+                  <div class="menu-wrapper menu-gold"> 
+            <ul class="menu">
+              <li>
+                <b style="text-decoration: underline;">Công tác</b>
+                <ul>
+                  <li>  </li>  
+                  <li><b (click)="miennhiem()">Miễn nhiệm</b></li>
+                  <li><b (click)="bonhiem()">Bổ nhiệm</b></li>
+                  <li><b (click)="Xemls()">Thuyên chuyển</b></li>   
+                                                                            
+                  <li><b (click)="dieudong()">Điều động</b></li>
+                  
+                </ul>
+              </li>
+            </ul>
+            </div>
+          </h5>
+          <h5><span style="text-decoration: underline;cursor:pointer" (click)="Xembaocao()"><b>Báo cáo</b></span></h5>
+          <h5 (click)="Khenthuong()"><span style="text-decoration: underline;cursor:pointer"><b>Khen thưởng</b></span></h5>
+        </div>
+        <div class="modal-body" id="congviec" >
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 col-md-4 col-lg-4">
+                <label class="col-12 col-md-8 col-lg-8" >
+                  <b>Mã nhân viên:
+                </b>
+                </label>
+                <div class="col-sm-12 col-md-4">
+                  <input type="text" #idnv="ngModel" name="idnv" [(ngModel)]="LLTN.idnv" disabled="disabled">
+                </div>
+            
+              </div>
+              <div class="col-md-4">
+                <label >
+                  <b>Họ tên:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #hoten="ngModel" name="hoten" [(ngModel)]="LLTN.hoten" disabled="disabled">
+                </div>
+                
+              </div>
+              <div class="col-md-4">
+                <label >
+                  <b>Ngày sinh:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="date" #ngaysinh="ngModel" name="ngaysinh" [(ngModel)]="LLTN.ngaysinh"disabled="disabled">
+                </div>
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label>
+                  <b>Quốc tịch:</b>
+                </label>
+              
+                <div class="col-md-3">
+                  <input type="text" #quoctich="ngModel" name="quoctich" [(ngModel)]="LLTN.quoctich"disabled="disabled">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label >
+                  <b>Dân tộc:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #dantoc="ngModel" name="dantoc" [(ngModel)]="LLTN.dantoc"disabled="disabled">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label >
+                  <b>Tôn giáo:</b>
+                </label>
+                <div class="col-md-2">
+                  <input type="text" #tongiao="ngModel" name="tongiao" [(ngModel)]="LLTN.tongiao"disabled="disabled">
+                </div>
+              </div>
+            
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label >
+                <b>Quê quán:</b>
+              </label>
+              <div class="col-md-3">
+                <input type="text" #quequan="ngModel" name="diachi" [(ngModel)]="LLTN.diachi"disabled="disabled">
+              </div>
+              </div>
+              <div class="col-md-6 ">
+                <label >
+                  <b>Giới tính:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #gioitinh="ngModel" name="gioitinh" [(ngModel)]="LLTN.gioitinh"disabled="disabled">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label >
+                  <b>Số nhà:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #sonha="ngModel" name="sonha" [(ngModel)]="LLTN.sonha"disabled="disabled">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label >
+                  <b>Mã số bảo hiểm:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #masobaohiem="ngModel" name="masobaohiem" [(ngModel)]="LLTN.masobaohiem"disabled="disabled">
+                </div>
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label >
+                  <b>Email:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #email="ngModel" name="email" [(ngModel)]="LLTN.email"disabled="disabled">
+                </div>
+
+              </div>
+              <div class="col-sm-6">
+                <label >
+                  <b>Chức vụ:</b>
+                </label>
+              
+                <div class="col-md-3">
+                  <input type="text" #chucvu="ngModel" name="chucvu" [(ngModel)]="LLTN.chucvu"disabled="disabled">
+                </div>
+              </div>
+            </div>
+          
+          </div>
+        </div>
+        <div class="modal-body" id="phucap" >
+          <table class="table table-striped table-hover table-fw-widget">
+            <thead>
+                <tr>                                   
+                    <th>Số QĐ</th>
+                  
+                    <th>Tên phụ cấp</th>
+                    <th>Hệ số</th>
+                    <th>Số tiền</th>
+                    <th>Ngày ký</th>
+                    <th>Ngày hiệu lực</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let it of list_phucap">
+                <td>{{it.soQD}}</td>
+                  <td>{{it.tenphucap}}</td>
+                  <td>{{it.heso}}</td>
+                  <td>{{it.sotien}}</td>
+                  <td>{{it.ngayky | date:'dd/MM/YYYY'}}</td>
+                  <td>{{it.ngayhieuluc | date:'dd/MM/YYYY'}}</td>           
+              </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-body" id="bacluong" >
+          <table class="table table-striped table-hover table-fw-widget">
+            <thead>
+                <tr>                                   
+                    <th>Tên nhân viên</th>
+                    <th>Bậc lương</th>
+                    <th>Hệ số 1</th>
+                    <th>Hệ số 2</th>
+                    <th>Ngày ký</th>
+                    <th>Ngày hiệu lực</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let its of list_bacluong">
+                <td *ngIf="LSs">{{LSs.hoten}}</td>
+                
+                <td>{{its.bacluong}}</td>
+                <td>{{its.hesoluong}}</td>
+                <td>{{its.heso2}}</td>
+                <td>{{its.ngayky | date:'dd/MM/YYYY'}}</td>
+                <td>{{its.ngayhieuluc | date:'dd/MM/YYYY'}}</td>
+                
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-body" id="hopdong" >
+          <table class="table table-striped table-hover table-fw-widget">
+            <thead>
+                <tr>                                   
+                    <th>Số HĐ</th>
+                    <th>Mã HĐ</th>
+                    <th>Tên HĐ</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày ký</th>
+                    <th>Ngày hiệu lực</th>
+                    <th>Ngày hết hạn</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let its of list_hopdong">
+                  <td>{{its.soHD}}</td>
+                  <td>HĐ{{its.maLHD}}</td>
+                  <td>{{its.tenLHD}}</td>
+                  <td>{{its.trangthai}}</td>
+                  <td>{{its.ngayky | date:'dd/MM/YYYY'}}</td>
+                  <td>{{its.ngayhieuluc | date:'dd/MM/YYYY'}}</td>
+                  <td>{{its.ngayhethan | date:'dd/MM/YYYY'}}</td>
+                
+                            
+              </tr>
+            </tbody>
+        </table>
+        </div>     
+        <div class="modal-body" id="trinhdo" >
+          <table class="table table-striped table-hover table-fw-widget">
+            <thead>
+                <tr>                                   
+                    <th>Học hàm</th>
+                    <th>Học vị</th>
+                    <th>Chuyên ngành</th>
+                    <th>Chuyên môn</th>
+                    <th>Ngoại ngữ</th>
+                    <th>Tin học</th>
+                    <th>Văn bằng khác</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let its of list_trinhdo">
+                <td>{{its.hocham}}</td>
+                <td>HĐ{{its.hocvi}}</td>
+                <td>{{its.chuyennganh}}</td>
+                <td>{{its.chuyenmon}}</td>
+                <td>{{its.ngoaingu}}</td>
+                <td>{{its.tinhoc}}</td>
+                <td>{{its.vanbangkhac}}</td>
+              
+                          
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-body" id="thuyenchuyen">
+          <table class="table table-striped table-hover table-fw-widget">
+            <thead>
+                <tr>    
+                    <th>Sổ QĐ</th>                               
+                    <th>Tên nhân viên</th>
+                    <th>Tổ cũ</th>
+                    <th>Tổ mới</th>
+                    <th>Ngày chuyển</th>
+                    <th>Ngày hiệu lực</th>
+                    <th>Người ký</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let its of LS">
+                  <td>{{its.soQD}}</td>
+                  <td *ngIf="LSs">{{LSs.hoten}}</td>
+                    <td >
+                      {{its.tocu}}
+                    
+                    </td>
+                    <td>
+                      {{its.tomoi}}
+                    
+                    </td>
+                  
+                    <td>{{its.ngaychuyen | date:'dd/MM/YYYY'}}</td>
+                    <td>{{its.ngayhieuluc | date:'dd/MM/YYYY'}}</td>
+                    <td>{{its.nguoiky}}</td>
+                  
+                              
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-body" id="miennhiem">
+          <table class="table table-striped table-hover table-fw-widget">
+            <thead>
+                <tr>                 
+                  <th>Sổ QĐ</th>                  
+                    <th>Tên nhân viên</th>
+                    <th>Chức vụ cũ</th>
+                    <th>Chức vụ mới</th>   
+                  
+                    <th>Ngày ký</th>
+                    <th>Ngày hiệu lực</th>
+                    <th>Người ký </th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let its of list_miennhiem">
+                <td>{{its.soQD}}</td>
+                <td *ngIf="LSs">{{LSs.hoten}}</td>
+                <td>{{its.chucvucu}}</td>
+                <td>{{its.chucvumoi}}</td>
+                <td>{{its.ngaychuyen | date:'dd/MM/YYYY'}}</td>
+                <td>{{its.ngayhieuluc | date:'dd/MM/YYYY'}}</td>
+                <td>{{its.nguoiky}}</td>
+              
+              
+                          
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-body" id="bonhiem">
+          <table class="table table-striped table-hover table-fw-widget">
+            <thead>
+                <tr>    
+                  <th>Sổ QĐ</th>                               
+                  <th>Tên nhân viên</th>
+                  <th>Chức vụ cũ</th>
+                  <th>Chức vụ mới</th>
+                  <th>Ngày ký</th>
+                  <th>Ngày hiệu lực</th>
+                  <th>Người ký</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let its of list_bonhiem">
+                <td>{{its.soQD}}</td>
+                <td *ngIf="LSs">{{LSs.hoten}}</td>
+                <td>{{its.chucvucu}}</td>
+                <td>{{its.chucvumoi}}</td>
+                <td>{{its.ngaychuyen | date:'dd/MM/YYYY'}}</td>
+                <td>{{its.ngayhieuluc | date:'dd/MM/YYYY'}}</td>
+                <td>{{its.nguoiky}}</td>
+              
+                          
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-body" id="baocao"> 
+          <div>
+            <form name="formLogin">
+              <div class="modal-body">
+                <div class="col-sm-12 col-md-12">            
+                <div class="col-sm-6 col-md-6" style="float: left;"> 
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                        <b> Thứ :</b>
+                      </label>
+                      <div class="col-sm-12 col-md-8">
+                        <input style="background-color: rgb(183, 186, 187);" type="text"  class="form-control" #thu="ngModel"  [(ngModel)]="capnhatbaocao.thu"  name="thu" disabled="disabled">
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-sm-6 col-md-6" style="float: right;">
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                  <b> Ngày :</b>
+                    </label>
+                    <div class="col-sm-12 col-md-8">
+                      <input style="background-color: rgb(183, 186, 187);" type="datetime"  class="form-control" #ngay="ngModel"  [(ngModel)]="capnhatbaocao.ngay" name="ngay"  name="ngay" disabled="disabled">
+                    </div>
+                    
+    
+                      </div>
+              </div>
+              </div>
+                    
+                <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-2 col-lg-2">
+                  <b>  Công việc:</b>
+                    </label>
+                    <div class="col-sm-12 col-md-8" >
+                      <input  type="text"  class="form-control" #noidung="ngModel"  [(ngModel)]="baocao.noidung" name="noidung" disabled="disabled">
+                      <!-- <textarea class="form-control" id="message-text" #noidung="ngModel"  [(ngModel)]="baocao.noidung" name="noidung" disabled="disabled"></textarea> -->
+                      <!-- <ckeditor [editor]="editor" #noidung="ngModel"  [(ngModel)]="baocao.noidung" name="noidung"></ckeditor> -->
+                    </div>
+                </div>
+                
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-2 col-lg-2">
+                    <b>Kết quả:</b>
+                      </label>
+                      <div class="col-sm-12 col-md-8">
+                        
+                        <textarea class="form-control" id="message-text"name="ghichu" disabled="disabled"></textarea>
+                        <!-- <ckeditor [editor]="editor"name="ghichu"></ckeditor> -->
+                      </div>
+                  </div>
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-2 col-lg-2">
+                    <b>Link báo cáo :</b>
+                    </label>
+                    <div class="col-sm-12 col-md-8">
+                      <input  type="text"  class="form-control" #linkbaocao="ngModel"  [(ngModel)]="capnhatbaocao.linkbaocao" name="linkbaocao" disabled="disabled">
+                    </div>
+                  </div>
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-2 col-lg-2">
+                  <b>Nhận xét:</b>
+                    </label>
+                    <div class="col-sm-12 col-md-8">
+                    
+                      <textarea class="form-control" id="message-text" #nhanxet="ngModel"  [(ngModel)]="capnhatbaocao.nhanxet" name="nhanxet"></textarea>
+                      <!-- <ckeditor [editor]="editor"name="ghichu"></ckeditor> -->
+                    </div>
+                </div>
+                  <div class="text-right" style="padding-right: 10px;">
+                    
+                    <button class="btn btn-icon icon-left btn-success" (click)="Editbc()" id="btnSubmit" >
+                      <i class="fas fa-check"></i>
+                      <span>Save</span>
+                    </button>
+                  </div>
+              </div>
+            </form>
+          </div>  
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width:5%;">Thứ</th>
+                <th style="width:15%;">Công việc</th>
+              
+                <th style="width:30%;">Link báo cáo</th>
+                
+                <th style="width:30%;">Nhận xét</th> 
+                <th style="width:20%;">Ngày viết</th>
+                <th>Tác vụ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let it of list_baocao">
+                <td><b>{{it.thu}}</b></td>
+              <td>{{it.noidung}}</td>
+              <td><a href="{{it.linkbaocao}}">{{it.linkbaocao}}</a></td>
+              <td> 
+                {{it.nhanxet}}
+              </td>  
+              <td>{{it.ngay | date:'dd/MM/YYYY'}}</td>
+                                        
+              <td>                                                  
+                <button data-target=".bd-example-modal-lg" title="Sửa" (click)="EditbcModel(it)"
+                class="btn btn-icon btn-primary">
+                <i class="fas fa-edit"></i>
+                </button>
+              </td> 
+          
+          </tr>
+          </table>
+        
+          </div>
+        <div class="modal-body" id="dieudong">
+          <table class="table table-striped table-hover table-fw-widget">
+            <thead>
+                <tr>      
+                  <th>Sổ QĐ</th>                                
+                  <th>Tên nhân viên</th>
+                  <th>Phòng ban cũ</th>
+                  <th>Phòng ban mới</th>
+                  <th>Ngày ký</th>
+                  <th>Ngày hiệu lực</th>
+                  <th>Người ký</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let its of list_dieudong">
+                <td>{{its.soQD}}</td>
+                <td *ngIf="LSs">{{LSs.hoten}}</td>
+                <td>{{its.phongbancu}}</td>
+                <td>{{its.phongbanmoi}}</td>
+                <td>{{its.ngaychuyen | date:'dd/MM/YYYY'}}</td>
+                <td>{{its.ngayhieuluc | date:'dd/MM/YYYY'}}</td>
+                <td>{{its.nguoiky}}</td>
+                  
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-body" id="Xem">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 col-md-4 col-lg-4">
+                <label class="col-12 col-md-8 col-lg-8" >
+                  <b>Mã nhân viên:
+                </b>
+                </label>
+                <div class="col-sm-12 col-md-4">
+                  <input type="text" #idnv="ngModel" name="idnv" [(ngModel)]="LLTN.idnv" disabled="disabled">
+                </div>
+            
+              </div>
+              <div class="col-md-4">
+                <label >
+                  <b>Họ tên:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #hoten="ngModel" name="hoten" [(ngModel)]="LLTN.hoten" disabled="disabled">
+                </div>
+                
+              </div>
+              <div class="col-md-4">
+                <label >
+                  <b>Ngày sinh:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="date" #ngaysinh="ngModel" name="ngaysinh" [(ngModel)]="LLTN.ngaysinh"disabled="disabled">
+                </div>
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label>
+                  <b>Quốc tịch:</b>
+                </label>
+              
+                <div class="col-md-3">
+                  <input type="text" #quoctich="ngModel" name="quoctich" [(ngModel)]="LLTN.quoctich" disabled="disabled">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label >
+                  <b>Dân tộc:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #dantoc="ngModel" name="dantoc" [(ngModel)]="LLTN.dantoc"disabled="disabled">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label >
+                  <b>Tôn giáo:</b>
+                </label>
+                <div class="col-md-2">
+                  <input type="text" #tongiao="ngModel" name="tongiao" [(ngModel)]="LLTN.tongiao"disabled="disabled">
+                </div>
+              </div>
+            
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label >
+                <b>Quê quán:</b>
+              </label>
+              <div class="col-md-3">
+                <input type="text" #quequan="ngModel" name="diachi" [(ngModel)]="LLTN.diachi"disabled="disabled">
+              </div>
+              </div>
+              <div class="col-md-6 ">
+                <label >
+                  <b>Giới tính:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #gioitinh="ngModel" name="gioitinh" [(ngModel)]="LLTN.gioitinh"disabled="disabled">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label >
+                  <b>Số nhà:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #sonha="ngModel" name="sonha" [(ngModel)]="LLTN.sonha"disabled="disabled">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label >
+                  <b>Mã số bảo hiểm:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #masobaohiem="ngModel" name="masobaohiem" [(ngModel)]="LLTN.masobaohiem"disabled="disabled">
+                </div>
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label >
+                  <b>Email:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #email="ngModel" name="email" [(ngModel)]="LLTN.email"disabled="disabled">
+                </div>
+
+              </div>
+              <div class="col-sm-6">
+                <label >
+                  <b>Chức vụ:</b>
+                </label>
+              
+                <div class="col-md-3">
+                  <input type="text" #chucvu="ngModel" name="chucvu" [(ngModel)]="LLTN.chucvu"disabled="disabled">
+                </div>
+              </div>
+            </div>
+            <div><b><u>QUAN HỆ GIA ĐÌNH</u></b></div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label >
+                  <b>Họ tên cha:</b>
+                </label>
+              
+                <div class="col-md-3">
+                  <input type="text" #hotencha="ngModel" name="hotencha" [(ngModel)]="LLTN.hotencha"disabled="disabled">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label >
+                  <b>Năm sinh:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #namsinh="ngModel" name="namsinh" [(ngModel)]="LLTN.namsinh"disabled="disabled">
+                </div>
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <label >
+                  <b>Quốc tịch:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #quoctichb="ngModel" name="quoctichb" [(ngModel)]="LLTN.quoctichb"disabled="disabled">
+                </div>
+
+              </div>
+              <div class="col-sm-4">
+                <label >
+                  <b>Dân tộc:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #dantocb="ngModel" name="dantocb" [(ngModel)]="LLTN.dantocb"disabled="disabled">
+                </div>
+                
+              </div>
+              <div class="col-sm-4">
+                <label >
+                  <b>Tôn giáo:</b>
+                </label>
+              
+                <div class="col-md-3">
+                  <input type="text" #tongiaob="ngModel" name="tongiaob" [(ngModel)]="LLTN.tongiaob"disabled="disabled">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+            
+              <div class="col-sm-12">
+                <label >
+                  <b>Hộ khẩu thường trú:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #hokhauthuogtrub="ngModel" name="hokhauthuongtrub" [(ngModel)]="LLTN.hokhauthuongtrub">
+                </div>
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label >
+                  <b>Nghề nghiệp:</b>
+                </label>
+              
+                <div class="col-md-3">
+                  <input type="text" #nghenghiepcha="ngModel" name="nghenghiepcha" [(ngModel)]="LLTN.nghenghiepcha"disabled="disabled">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label >
+                  <b>Số điện thoại:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #sdtcha="ngModel" name="sdtcha" [(ngModel)]="LLTN.sdtcha"disabled="disabled">
+                </div>
+                
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label >
+                  <b>Họ tên mẹ:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #hotenme="ngModel" name="hotenme" [(ngModel)]="LLTN.hotenme"disabled="disabled">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label >
+                  <b>Năm sinh:</b>
+                </label>
+              
+                <div class="col-md-3">
+                  <input type="text" #namsinhm="ngModel" name="namsinhm" [(ngModel)]="LLTN.namsinhm"disabled="disabled">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <label >
+                  <b>Quốc tịnh:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #quoctichm="ngModel" name="quoctichm" [(ngModel)]="LLTN.quoctichm"disabled="disabled">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <label >
+                  <b>Dân tộc:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #dantocm="ngModel" name="dantocm" [(ngModel)]="LLTN.dantocm"disabled="disabled">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <label >
+                  <b>Tôn giáo:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #tongiaom="ngModel" name="tongiaom" [(ngModel)]="LLTN.tongiaom"disabled="disabled">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+            
+              <div class="col-sm-12">
+                <label >
+                  <b>Hộ khẩu thường trú:</b>
+                </label>
+              
+                <div class="col-md-3">
+                  <input type="text" #hokhauthuongtrum="ngModel" name="hokhauthuongtrum" [(ngModel)]="LLTN.hokhauthuongtrum"disabled="disabled">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <label >
+                  <b>Số lượng anh chị em:</b>
+                </label>
+                <div class="col-md-3">
+                  <input type="text" #slae="ngModel" name="slae" [(ngModel)]="LLTN.slae"disabled="disabled">
+                </div>
+
+              </div>
+            
+            </div>
+          </div>
+        </div>
+        <div class="modal-body" id="Khenthuong">
+          <table class="table table-striped table-hover table-fw-widget">
+            <thead>
+                <tr>                                   
+                    <th>Sổ QĐ</th>
+                    <th>Tên Pb</th>
+                    <th>Chức vụ</th>
+                    <th>Khen thưởng</th>
+                  
+                    <th>Trạng thái</th>
+                    <th>Ngày ký</th>
+                    <th>Năm thi đua</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let its of list_khenthuong">
+                <td>{{its.soQD}}</td>
+               
+                <td>
+                  <span *ngIf="its.mapb=='019a1506-d9fb-4164-a9f2-a648d59322c7'" >Phòng HC - NS</span>
+                  <span *ngIf="its.mapb=='17e782c9-d0cd-4a44-baa5-46a7990384e2'" >Phòng Kế Toán</span>
+                  <span *ngIf="its.mapb=='21608c69-a077-4323-90e4-8a3af9452e68'" >Phòng Dự Án</span>
+                  <span *ngIf="its.mapb=='27f4d8ec-ff2a-4f0c-82ce-e65c6bf598e4'" >Phòng Kinh Doanh</span>
+                  <span *ngIf="its.mapb=='2a5c4eff-cb61-46e9-9acb-4f9d4bbe7861'" >Phòng QL Kĩ Thuật</span>
+                  <span *ngIf="its.mapb=='2b73c881-9ae6-4f92-bccc-f1900b3bbeff'" >Phòng Maketing</span>
+                  <span *ngIf="its.mapb=='e848da3c-f5e9-4bda-a702-eba05aaa18d8'" >Phòng Thiết Kế</span>
+                
+                </td>
+                <td>{{its.chucvu}}</td>
+                <td>{{its.khenthuong}}</td>
+              
+                <td>{{its.trangthai}}</td>
+                <td>{{its.ngayky| date:'dd/MM/YYYY'}}</td>
+              <td>{{its.namthidua| date:'YYYY'}}</td>
+                          
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModals()" data-dismiss="modal">Close</button>
+        </div> 
+      </div>
+    
+  </form>
+ </div>
+</div>
+

@@ -1,0 +1,141 @@
+th{
+    width:10%;
+}
+td{
+    width:10%;
+}
+button
+{
+    margin-top:5px;
+    margin-right: 5px;
+}
+#exampleModal
+{
+    width: 70%;
+}
+  .menu-wrapper, .menu a{
+  width: 100%;
+}
+
+.menu::after{
+  content: '';
+  clear: both;
+  display: block;
+}
+
+.menu b{
+  display: block;
+  padding: 5px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-decoration: none;
+ 
+}
+
+.menu li{
+  position: relative;
+}
+
+.menu > li{
+  float: left;
+}
+
+.menu, .menu ul{
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  
+}
+
+.menu ul li+li{
+  border-top: 1px;
+}
+
+.menu ul{
+  position: absolute;
+  box-shadow:  5px 5px 10px 0 rgba(0,0,0, 0.5);
+}
+
+.menu > li ul, .menu ul ul{
+  
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  z-index: -1;
+  visibility: hidden;
+}
+
+.menu > li ul{
+  top: 100%;
+  left: 0;
+}
+
+.menu ul ul{
+  left: 100%;
+  top: 0;
+}
+
+.menu ul b{
+  width: 200px;
+}
+
+.menu > li:hover > ul{
+  top: 100%;
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+  background-color: aliceblue;
+}
+
+.menu ul > li:hover > ul{
+  left: 100%;
+  opacity: 1;
+  z-index: 1;
+  visibility: visible;
+  
+}
+ 
+
+
+.menu-gold, .menu-gold b{
+  color: #000;
+}
+.menu-gold b:hover{
+  cursor:pointer;
+  color: #13b88c;
+}
+
+/* body{
+  background-image: url("http://recruit.framgia.vn/wp-content/themes/framgia-vn/css/images/bg/banner.jpg");
+  text-align: center;
+} */
+
+h1{
+  text-align: center;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 40px;
+}
+#tacvu button{
+  width: 27px;
+  height: 27px;
+  text-align: center;
+}
+
+.modal-content{
+  width: 1146px;
+}
+/* #document
+{
+  background-color: #fff;
+}*/
+/* form
+{
+  background-color: #fff;
+}  */
+.row{
+  
+  background-color: #fff;
+  border: #13b88c;
+}

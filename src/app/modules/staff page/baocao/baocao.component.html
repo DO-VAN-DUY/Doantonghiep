@@ -1,0 +1,194 @@
+<div class="be-content">
+    <div class="page-head">
+        <!-- <h2 class="page-head-title">Data Tables</h2> -->
+        <div class="col-12 col-md-12 col-lg-12">
+
+           
+            
+          
+             <div class="col-12 col-md-12 col-lg-12" style="text-align:right;color: black;">Hiển thị &nbsp;
+              <label class="mr-3">
+              <select class="custom-select" >
+                <option [ngValue]="1">1 </option>
+                <option [ngValue]="5">5 </option>
+                <option [ngValue]="10">10 </option> 
+                <option [ngValue]="15">15 </option>
+            </select></label>
+           
+             Tổng số &nbsp;<ins ng-bind="totalItems" class="text-info"></ins>&nbsp; bản ghi
+             
+             <input type="text" style="width:200px;"placeholder="Tìm kiếm theo tên..."> &nbsp;
+           
+            </div>
+         </div>
+    </div>
+    <div class="idin-content container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                   
+                    <div class="card-body">
+                     
+                        <div class="modal-content">
+                          <div class="modal-header">
+                        
+                          </div>
+                          <form name="formLogin" #Formbaocao="ngForm">
+                            <div class="modal-body">
+                              <div class="col-sm-12 col-md-12">            
+                               <div class="col-sm-6 col-md-6" style="float: left;"> 
+                                   <div class="form-group row mb-4">
+                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                      <b> Thứ :</b>
+                                     </label>
+                                     <div class="col-sm-12 col-md-8">
+                                       <input style="background-color: rgb(183, 186, 187);" type="text"  class="form-control" #thu="ngModel"  [(ngModel)]="capnhatbaocao.thu" name="thu" disabled="disabled">
+                                     </div>
+                                   </div>
+                                 </div>
+                              <div class="col-sm-6 col-md-6" style="float: right;">
+                                 <div class="form-group row mb-4">
+                                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                 <b> Ngày :</b>
+                                   </label>
+                                   <div class="col-sm-12 col-md-8">
+                                     <input style="background-color: rgb(183, 186, 187);" type="datetime"  class="form-control" #ngay="ngModel"  [(ngModel)]="capnhatbaocao.ngay" name="ngay" disabled="disabled">
+                                   </div>
+                                   
+   
+                                     </div>
+                            </div>
+                            </div>
+                                   
+                               <div class="form-group row mb-4">
+                                   <label class="col-form-label text-md-right col-12 col-md-2 col-lg-2">
+                                 <b>  Công việc:</b>
+                                   </label>
+                                   <div class="col-sm-12 col-md-8" >
+                                    
+                                    <textarea class="form-control" id="message-text" #noidung="ngModel"  [(ngModel)]="capnhatbaocao.noidung" name="noidung"></textarea>
+                                    <!-- <ckeditor [editor]="editor" #noidung="ngModel"  [(ngModel)]="baocao.noidung" name="noidung"></ckeditor> -->
+                                   </div>
+                               </div>
+                               
+                                   <div class="form-group row mb-4">
+                                     <label class="col-form-label text-md-right col-12 col-md-2 col-lg-2">
+                                   <b>Kết quả:</b>
+                                     </label>
+                                     <div class="col-sm-12 col-md-8">
+                                      
+                                       <!-- <textarea class="form-control" id="message-text" #ghichu="ngModel"  [(ngModel)]="baocao.ghichu" name="ghichu"></textarea> -->
+                                       <ckeditor [editor]="editor" #ghichu="ngModel"  [(ngModel)]="capnhatbaocao.ghichu" name="ghichu"></ckeditor>
+                                     </div>
+                                 </div>
+                                 <div class="form-group row mb-4">
+                                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                   <b> Link báo cáo :</b>
+                                  </label>
+                                  <div class="col-sm-12 col-md-8">
+                                    <input  type="text"  class="form-control" #linkbaocao="ngModel"  [(ngModel)]="capnhatbaocao.linkbaocao" name="linkbaocao">
+                                  </div>
+                                </div>
+                                 <div class="text-right" style="padding-right: 10px;">
+                                  
+                                   <button class="btn btn-icon icon-left btn-success" (click)="Edit()" id="btnSubmit" >
+                                     <i class="fas fa-check"></i>
+                                     <span>Save</span>
+                                   </button>
+                                 </div>
+                             </div>
+                          </form>
+                         
+                        </div>
+                       
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th style="width: 5%;">Thứ</th>
+                              <th style="width: 25%;">Công việc</th>
+                              <th style="width: 20%;">Link báo cáo</th>
+                              <th style="width: 40%;">Nhận xét</th>
+                              <th style="width: 10%;">Tác vụ</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let it of list_item">
+                              <td><b>{{it.thu}}</b></td>
+                             <td>{{it.noidung}}</td>
+                             <td><a style="color: black;text-decoration: none;" href="{{it.linkbaocao}}">{{it.linkbaocao}}</a></td>
+                             <td> 
+                               {{it.nhanxet}}
+                             </td>
+                             <td>
+                             <button data-target=".bd-example-modal-lg" title="Sửa" (click)="EditModel(it)"
+                                 class="btn btn-icon btn-primary">
+                                 <i class="fas fa-edit"></i>
+                                 </button>
+                             </td>
+                         </tr>
+                        </table>
+                        <div class="d-flex justify-content-between p-2">
+                           <ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+                          </ngb-pagination>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="largeModal">
+    <div class="modal-dialog modal-lg">
+<!-- <form name="formLogin" #Formbaocao="ngForm">
+      <div class="modal-content">
+        <div class="modal-header">
+         
+          <h5 class="modal-title"><span><b>Cập nhật thông tin</b></span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row mb-4" style="margin-left: 50%;">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+           <b> Thứ :</b>
+            </label>
+            <div class="col-sm-12 col-md-8">
+              <input style="background-color: rgb(183, 186, 187);" type="text"  class="form-control" #thu="ngModel"  [(ngModel)]="capnhatbaocao.thu" name="thu" disabled="disabled">
+            </div>
+        </div>
+              
+          <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-2 col-lg-2">
+            <b>  Công việc:</b>
+              </label>
+              <div class="col-sm-12 col-md-10">
+               
+               <textarea class="form-control" id="message-text" style="height:150%;" #noidung="ngModel"  [(ngModel)]="baocao.noidung" name="noidung"></textarea>
+              </div>
+          </div>
+          
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-2 col-lg-2">
+              <b>Kết quả:</b>
+                </label>
+                <div class="col-sm-12 col-md-10">
+                 
+                  <textarea class="form-control" id="message-text" #ghichu="ngModel"  [(ngModel)]="baocao.ghichu" name="ghichu"></textarea>
+                </div>
+            </div>
+            <div class="text-right">
+              <button type="button" class="btn btn-secondary" (click)="closeModalsss()" data-dismiss="modal">Close</button>&nbsp;
+              <button class="btn btn-icon icon-left btn-success" (click)="Edit()" id="btnSubmit" >
+                <i class="fas fa-check"></i>
+                <span>Save</span>
+              </button>
+            </div>
+        </div>
+      </div>
+      </form> -->
+    </div>
+</div>
+    

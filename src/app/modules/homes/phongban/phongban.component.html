@@ -1,0 +1,173 @@
+<div class="be-content">
+    <div class="page-head">
+        <!-- <h2 class="page-head-title">Data Tables</h2> -->
+        <div class="col-12 col-md-12 col-lg-12">
+          <div class="row" style="padding:10px; border-width: 1px;">
+            <div class="col-12" >
+              <div class="page-title-box" >
+                  <div class="page-title-right">
+                      <ol class="breadcrumb m-0">
+                          <li class="breadcrumb-item"><a [routerLink]="['/homes/chinhanh']" >Homes</a></li>
+                          <li class="breadcrumb-item"><a [routerLink]="['/homes/phongban']">phongban</a></li>
+                         
+                      </ol>
+                  </div>
+                 
+              </div>
+          </div>
+            </div>      
+            <div style="padding:15px;">
+              <button type="button" class="btn btn-success" (click)="openModel(true,null)"><a style="color:white;" name="save">Thêm bản ghi </a> </button>
+            </div>
+             <div class="col-12 col-md-12 col-lg-12" style="margin-top: 25px;height: 45px;">
+             
+        
+         <div style="padding-left:60%; margin-top:-40px;">
+          Hiển thị &nbsp;<label class="mr-3"><select class="custom-select" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+            <option [ngValue]="1">1 </option>
+            <option [ngValue]="5">5 </option>
+            <option [ngValue]="8">8 </option>
+            <option [ngValue]="10">10 </option> 
+            <option [ngValue]="15">15 </option>
+        </select></label>
+          Tổng số &nbsp;<ins ng-bind="totalItems" class="text-info"></ins>&nbsp; bản ghi
+          
+          <!-- <input type="text"  [(ngModel)]="filterBy" style="border:none;width:200px;"placeholder="Tìm kiếm theo tên..."> &nbsp; -->
+         </div>
+        <div style="padding-left:78%; margin-top:-45px;">
+          <ul class="navbar-nav mr-3">
+                      
+            <li>
+                <form class="form-inline mr-auto"  #Formphongban="ngForm" (ngSubmit)="LoadData()" >
+                    <div class="search-element">
+                        <input class="form-control" #tenpb="ngModel" name="tenpb" [(ngModel)]="phongban.tenpb" type="search" placeholder="Nhập thông tin tìm kiếm........" aria-label="Search">
+                            &nbsp;&nbsp;
+                        <button class="btn btn-success" style="margin-top: -3px;" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </li>
+        </ul>
+        </div>
+     </div>
+    
+    <div class="idin-content container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <!-- <table class="table table-striped table-hover table-fw-widget" id="table1"> -->
+                        <table class="table table-striped table-hover table-fw-widget">
+                            <thead>
+                                <tr style="background-color: aquamarine;">
+                                  <th>STT</th>
+                                    <th>Tên phòng ban</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Trạng thái</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let it of list_item | filter:filterBy; let i= index">
+                                   <td>{{++i+1}}</td>
+                                    <td>{{it.tenpb}}</td>
+                                    <td>{{it.sdtpb}}</td>
+                                    <td>
+                                      <!-- <span style="background-color: rgb(9, 173, 31);padding: 7px;border-radius:10px" class="label label-success">Hoạt động</span> -->
+                                      <span *ngIf="it.trangthai=='Hoạt động'" class="badge badge-pill badge-success">Hoạt động</span>
+                                    </td>
+                                    <td> <button data-toggle="modal" data-target=".bd-example-modal-lg" title="Sửa" (click)="openModel(false,it)"
+                                        class="btn btn-icon btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button title="Xóa" (click)="DeleteModel(it.id)"style="color: #fff" class="btn btn-icon btn-warning"> 
+                                        <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                      </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-between p-2">
+                          <ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+                          </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="largeModal">
+    <div class="modal-dialog modal-lg">
+  <form name="formLogin" (ngSubmit)="phongbans()" #Formphongban="ngForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" *ngIf="!isEdit"><span>Thêm phòng ban</span></h5>
+          <h5 class="modal-title" *ngIf="isEdit"><span>Sửa phòng ban</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+                <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                    Tên chi nhánh<span style="color:red ;">*</span>:
+                    </label>
+                    <div class="col-sm-12 col-md-7">
+                      <select class="form-control" #idcn="ngModel" name="idcn" [(ngModel)]="phongban.idcn" required>
+                        <option value="">--Chọn tên chi nhánh--</option>  
+                        <option *ngFor="let it of list_chinhanh" value="{{it.id}}">{{it.tencn}}</option>
+                        <small *ngIf="!idcn?.valid && (idcn?.dirty||idcn.touched)"class="help-block">Tên chi nhánh không hợp lệ !</small>
+                      </select>
+                </div>
+             </div>
+          <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+              Tên phòng ban<span style="color:red ;">*</span>:
+              </label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" #tenpb="ngModel" placeholder="Nhập tên phòng ban..." [(ngModel)]="phongban.tenpb" name="tenpb"  required>
+                <small *ngIf="!tenpb?.valid && (tenpb?.dirty||tenpb.touched)"class="help-block">Tên phòng ban không hợp lệ !</small>
+              </div>
+          </div>
+          <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                  Điện thoại<span style="color:red ;">*</span>:
+                </label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" class="form-control" #sdtpb="ngModel" placeholder="Nhập số điện thoại phòng ban..." [(ngModel)]="phongban.sdtpb" pattern="^(0[35789][0-9]{8})$" name="sdtpb"
+                    required>
+                    <small *ngIf="!sdtpb?.valid && (sdtpb?.dirty||sdtpb.touched)"class="help-block">Số điện thoại không hợp lệ !</small>
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                Trạng thái<span style="color:red ;">*</span>:
+                </label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" class="form-control" #trangthai="ngModel" placeholder="Nhập trạng thái hoạt động..." [(ngModel)]="phongban.trangthai" name="trangthai"  required>
+                  <small *ngIf="!trangthai?.valid && (trangthai?.dirty||trangthai.touched)"class="help-block">Trạng thái không hợp lệ !</small>
+                </div>
+            </div>
+            <div class="text-right">
+              <button type="button" class="btn btn-secondary" (click)="closeModalsss()" data-dismiss="modal">Close</button> &nbsp;
+              <button type="submit" class="btn btn-icon icon-left btn-success" *ngIf="!isEdit" (click)="addphongban()" id="btnSubmit" >
+                <i class="fas fa-check"></i>
+                <span>Saves</span>
+              </button>
+              <button type="submit" class="btn btn-icon icon-left btn-success"  *ngIf="isEdit" (click)="Editphongban()" id="btnSubmit" >
+                <i class="fas fa-check"></i>
+                <span>Save</span>
+              </button>
+            </div>
+        </div>
+       
+      </div>
+  </form>
+   </div>
+</div>
+    

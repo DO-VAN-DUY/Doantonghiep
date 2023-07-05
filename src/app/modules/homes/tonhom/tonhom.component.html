@@ -1,0 +1,172 @@
+<div class="be-content">
+    <div class="page-head">
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="row" style="padding:10px; border-width: 1px;">
+          <div class="col-12" >
+            <div class="page-title-box" >
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a [routerLink]="['/homes/chinhanh']" >Homes</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/homes/tonhom']">tonhom</a></li>
+                       
+                    </ol>
+                </div>
+               
+            </div>
+        </div>
+          </div>
+   
+           <div style="padding:15px;">
+            <button type="button" class="btn btn-success" (click)="openModel(true,null)"><a style="color:white;" name="save">Thêm bản ghi </a> </button>
+           </div>
+             <div class="col-12 col-md-12 col-lg-12" style="text-align:right;color: black;">
+             
+        
+         <div style="padding-left:60%; margin-top:-30px;">
+          Hiển thị &nbsp;<label class="mr-3"><select class="custom-select" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+            <option [ngValue]="1">1 </option>
+            <option [ngValue]="5">5 </option>
+            <option [ngValue]="8">8 </option>
+            <option [ngValue]="10">10 </option> 
+            <option [ngValue]="15">15 </option>
+        </select></label>
+          Tổng số &nbsp;<ins ng-bind="totalItems" class="text-info"></ins>&nbsp; bản ghi
+          
+          <input type="text"  [(ngModel)]="filterBy" style="border:none;width:200px;"placeholder="Tìm kiếm theo tên..."> &nbsp;
+         </div>
+        <div style="padding-left:79%; margin-top:-45px;">
+          <ul class="navbar-nav mr-3">
+                      
+            <li>
+                <form class="form-inline mr-auto"  #Formtonhom="ngForm" (ngSubmit)="LoadData()" >
+                    <div class="search-element">
+                        <input class="form-control" #tentn="ngModel" name="tentn" [(ngModel)]="tonhom.tentn" type="search" placeholder="Nhập thông tin tìm kiếm........" aria-label="Search"
+                       >
+                            &nbsp;&nbsp;
+                        <button class="btn btn-success" style="margin-top: -3px;" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </li>
+        </ul>
+        </div>
+         
+         </div>
+
+    <div class="idin-content container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-header">
+                    </div>
+                    
+                    <div class="card-body">
+                        <table class="table table-striped table-hover table-fw-widget" id="table1">
+                            <thead>
+
+                                <tr style="background-color: aquamarine;">
+                                  <th>STT</th>
+                                  <!-- <th>Tên phòng ban</th> -->
+                                    <th>Tên tổ nhóm</th>
+                                    <th>Trạng thái</th>
+                                    <th>Tác vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let it of list_item | filter:filterBy; let i= index">
+                                   <td>{{++i+1}}</td>
+                                  
+                                   
+                                    <td>{{it.tentn}}</td>
+                                    <td > 
+                                      <span *ngIf="it.trangthai=='Hoạt động'" class="badge badge-pill badge-success">Hoạt động</span>
+                                    </td>
+                                    <td>
+                                        <!-- <a [routerLink]="['/homes/tonhom']"><i class='fas fa-arrow-circle-right'
+                                                style='font-size:15x;'></i></a> -->
+                                    <button data-toggle="modal" data-target=".bd-example-modal-lg" title="Sửa" (click)="openModel(false,it)"
+                                        class="btn btn-icon btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button title="Xóa" (click)="DeleteModel(it.id)" style="color: #fff" class="btn btn-icon btn-warning"> 
+                                        <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                            </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-between p-2">
+                          <ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItems">
+                          </ngb-pagination>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="largeModal">
+    <div class="modal-dialog modal-lg">
+<form name="formLogin" (ngSubmit)="tonhoms()" #Formtonhom="ngForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" *ngIf="!isEdit"><span>Thêm tổ nhóm</span></h5>
+          <h5 class="modal-title" *ngIf="isEdit"><span>Sửa tổ nhóm</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+                <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                    Tên phòng ban<span style="color:red ;">*</span>:
+                    </label>
+                    <div class="col-sm-12 col-md-7">
+                        <select class="form-control" #idpb="ngModel" name="idpb" [(ngModel)]="tonhom.idpb" required>
+                            <option value="">--Chọn tên phòng ban--</option>  
+                            <option *ngFor="let it of list_phongban" value="{{it.id}}">{{it.tenpb}}</option>
+                            <small *ngIf="!idpb?.valid && (idpb?.dirty||idpb.touched)"class="help-block">Tên phòng ban không hợp lệ !</small>
+                          </select>
+                   
+                </div>
+             </div>
+          <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+              Tên tổ nhóm<span style="color:red ;">*</span>:
+              </label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" #tentn="ngModel"  placeholder="Nhập tên tổ nhóm..." [(ngModel)]="tonhom.tentn" name="tentn"  required>
+                <small *ngIf="!tentn?.valid && (tentn?.dirty||tentn.touched)"class="help-block">Tên tổ nhóm không hợp lệ !</small>
+              </div>
+          </div>
+          
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                Trạng thái<span style="color:red ;">*</span>:
+                </label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" class="form-control" #trangthai="ngModel"  placeholder="Nhập trạng thái..." [(ngModel)]="tonhom.trangthai" name="trangthai"  required>
+                  <small *ngIf="!trangthai?.valid && (trangthai?.dirty||trangthai.touched)"class="help-block">Trạng thái không hợp lệ !</small>
+                </div>
+            </div>
+
+            <div class="text-right">
+              <button type="button" class="btn btn-secondary" (click)="closeModalsss()" data-dismiss="modal">Close</button>&nbsp;
+              <button class="btn btn-icon icon-left btn-success"*ngIf="!isEdit" [disabled]="loading" (click)="addtonhom()" id="btnSubmit" >
+                <i class="fas fa-check"></i>
+                <span>Saves</span>
+              </button>
+              <button class="btn btn-icon icon-left btn-success" *ngIf="isEdit" (click)="Edittonhom()" id="btnSubmit" >
+                <i class="fas fa-check"></i>
+                <span>Save</span>
+              </button>
+            </div>
+        </div>
+       
+      </div>
+      </form>
+    </div>
+</div>
+    

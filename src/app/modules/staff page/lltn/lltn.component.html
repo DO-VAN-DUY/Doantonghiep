@@ -1,0 +1,350 @@
+
+ <div class="be-content">
+  <div style="padding-top: 20px; text-align: center;">
+    <h2 class="modal-title"><span style="color:rgb(220, 8, 8);" ><b>LÝ LỊCH TRÍCH NGANG</b></span></h2>
+  </div>
+    <div class="page-head">
+       
+       
+        <button type="button" class="btn btn-primary" (click)="LLTNS()"><a style="color:white;">Lưu thông tin </a></button>
+            <!-- <button type="button" class="btn btn-success"><a style="color:white;" name="save" href="{{ route('admin.tinhluong') }}"> Tính lương</a> </button> -->
+    </div>
+    <div class="idin-content container-fluid">
+       <form name="formLogins" #Formlltns="ngForm">
+      
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-3 col-xs-12 mb-10">
+                  <span>
+                    <b>Mã nhân viên:
+                   </b>
+                  </span>
+                  <span>
+                   
+                    <input type="text" #idnv="ngModel" name="idnv" [(ngModel)]="LLTN.idnv" disabled="disabled">
+                  </span>
+              
+                </div>
+                <div class="col-md-3 col-xs-12 mb-10">
+                  <span >
+                    <b>Họ tên:</b>
+                  </span>
+                  <span>
+                    <input type="text" #hoten="ngModel" name="hoten" [(ngModel)]="LLTN.hoten" disabled="disabled">
+                  </span>
+                  
+                </div>
+                <div class="col-md-3 col-xs-12 mb-10">
+                  <span >
+                    <b>Ngày sinh:</b>
+                  </span>
+                  <span>
+                    <input type="date" #ngaysinh="ngModel" name="ngaysinh" [(ngModel)]="LLTN.ngaysinh" disabled="disabled">
+                  </span>
+                </div>
+                <div class="col-md-3 col-xs-12 mb-10">
+                  <span >
+                    <b>Giới tính:</b>
+                  </span>
+                  <span>
+                    <input type="text" #gioitinh="ngModel" name="gioitinh" [(ngModel)]="LLTN.gioitinh" disabled="disabled">
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-xs-12">
+                  <span>
+                    <b>Quốc tịch:</b>
+                  </span>
+                
+                  <select class="form-control" #quoctich="ngModel" name="quoctich" [(ngModel)]="LLTN.quoctich">
+                    <option value="Việt Nam" selected="selected">Việt Nam</option> 
+                    <option value="Mỹ">Mỹ</option>  
+                    <option value="Trung Quốc">Trung Quốc</option> 
+                    <option value="Hàn Quốc">Hàn Quốc</option> 
+                    <option value="Nhật Bản">Nhật Bản</option> 
+                    <option value="Liên Bang Nga">Liên Bang Nga</option> 
+                    <option value="Anh">Anh</option> 
+                    <option value="Pháp">Pháp</option> 
+                    <option value="Đức">Đức</option> 
+                    <option value="Bỉ">Bỉ</option> 
+                  
+                  </select>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                  <span >
+                    <b>Dân tộc:</b>
+                  </span>   
+                  <select class="form-control" #dantoc="ngModel" name="dantoc" [(ngModel)]="LLTN.dantoc">
+                    <option value="Kinh" selected="selected">Kinh</option> 
+                    <option value="Thái">Thái</option>  
+                    <option value="Khơ me">Khơ me</option> 
+                    <option value="Mường">Mường</option> 
+                    <option value="Nùng">Nùng</option> 
+                    <option value="Tày">Tày</option> 
+                    <option value="Dao">Dao</option> 
+                    <option value="Mông">Mông</option> 
+                    <option value="Ê đê">Ê đê</option> 
+                    <option value="Cà Nu">Cà Nu</option> 
+                  
+                  </select>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                  <span>
+                    <b>Tôn giáo:</b>
+                  </span>
+                 
+                    <input style="width: 100%;" type="text" #tongiao="ngModel" name="tongiao" [(ngModel)]="LLTN.tongiao">
+                 
+                </div>
+              
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-xs-12 mb-10">
+                  <span >
+                  <b>Quê quán:</b>
+                </span>
+               
+                  <input style="width: 100%;" type="text" #quequan="ngModel" name="diachi" [(ngModel)]="LLTN.diachi">
+                
+                </div>
+              
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Số điện thoại:</b>
+                  </span>
+                  
+                    <input style="width: 100%;" type="text" #sdt="ngModel" name="sdt" [(ngModel)]="LLTN.sdt">
+                  
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Số nhà:</b>
+                  </span>
+                  
+                    <input style="width: 100%;" type="text" #sonha="ngModel" name="sonha" [(ngModel)]="LLTN.sonha">
+                  
+                </div>
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Mã số bảo hiểm:</b>
+                  </span>
+                 
+                    <input style="width: 100%;" type="text" #masobaohiem="ngModel" name="masobaohiem" [(ngModel)]="LLTN.masobaohiem">
+                
+                </div>
+              </div>
+            
+              <div class="row">
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Email:</b>
+                  </span>
+                 
+                    <input style="width: 100%;" type="text" #email="ngModel" name="email" [(ngModel)]="LLTN.email">
+                 
+    
+                </div>
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Chức vụ:</b>
+                  </span>
+                 
+                 
+                    <input style="width: 100%;" type="text" #chucvu="ngModel" name="chucvu" [(ngModel)]="LLTN.chucvu">
+                
+                </div>
+              </div>
+              <div style="padding-top: 20px;"><b><u>QUAN HỆ GIA ĐÌNH</u></b></div>
+              <div class="row">
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Họ tên cha:</b>
+                  </span>
+                 
+                
+                    <input style="width: 100%;" type="text" #hotencha="ngModel" name="hotencha" [(ngModel)]="LLTN.hotencha">
+                
+                </div>
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Năm sinh:</b>
+                  </span>
+                 
+                    <input style="width: 100%;" type="text" #namsinh="ngModel" name="namsinh" [(ngModel)]="LLTN.namsinh">
+                  
+                  
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-xs-12">
+                  <span>
+                    <b>Quốc tịch:</b>
+                  </span>
+                
+                  <select class="form-control" #quoctichb="ngModel" name="quoctichb" [(ngModel)]="LLTN.quoctichb">
+                    <option value="Việt Nam" selected="selected">Việt Nam</option> 
+                    <option value="Mỹ">Mỹ</option>  
+                    <option value="Trung Quốc">Trung Quốc</option> 
+                    <option value="Hàn Quốc">Hàn Quốc</option> 
+                    <option value="Nhật Bản">Nhật Bản</option> 
+                    <option value="Liên Bang Nga">Liên Bang Nga</option> 
+                    <option value="Anh">Anh</option> 
+                    <option value="Pháp">Pháp</option> 
+                    <option value="Đức">Đức</option> 
+                    <option value="Bỉ">Bỉ</option> 
+                  
+                  </select>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                  <span >
+                    <b>Dân tộc:</b>
+                  </span>   
+                  <select class="form-control" #dantocb="ngModel" name="dantocb" [(ngModel)]="LLTN.dantocb">
+                    <option value="Kinh" selected="selected">Kinh</option> 
+                    <option value="Thái">Thái</option>  
+                    <option value="Khơ me">Khơ me</option> 
+                    <option value="Mường">Mường</option> 
+                    <option value="Nùng">Nùng</option> 
+                    <option value="Tày">Tày</option> 
+                    <option value="Dao">Dao</option> 
+                    <option value="Mông">Mông</option> 
+                    <option value="Ê đê">Ê đê</option> 
+                    <option value="Cà Nu">Cà Nu</option> 
+                  
+                  </select>
+                </div>
+            
+                <div class="col-md-4 col-xs-12 mb-10">
+                  <span >
+                    <b>Tôn giáo:</b>
+                  </span>
+                    <input style="width: 100%;" type="text" #tongiaob="ngModel" name="tongiaob" [(ngModel)]="LLTN.tongiaob">           
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-xs-12 mb-10">
+                  <span >
+                    <b>Hộ khẩu thường trú:</b>
+                  </span>
+                    <input style="width: 100%;" type="text" #hokhauthuogtrub="ngModel" name="hokhauthuongtrub" [(ngModel)]="LLTN.hokhauthuongtrub">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Nghề nghiệp:</b>
+                  </span>
+                    <input style="width: 100%;" type="text" #nghenghiepcha="ngModel" name="nghenghiepcha" [(ngModel)]="LLTN.nghenghiepcha">     
+                </div>
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Số điện thoại:</b>
+                  </span>     
+                    <input style="width: 100%;" type="text" #sdtcha="ngModel" name="sdtcha" [(ngModel)]="LLTN.sdtcha">   
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Họ tên mẹ:</b>
+                  </span>
+                
+                    <input style="width: 100%;" type="text" #hotenme="ngModel" name="hotenme" [(ngModel)]="LLTN.hotenme">
+                </div>
+                <div class="col-md-6 col-xs-12 mb-10">
+                  <span >
+                    <b>Năm sinh:</b>
+                  </span>
+                 
+                 
+                    <input style="width: 100%;" type="text" #namsinhm="ngModel" name="namsinhm" [(ngModel)]="LLTN.namsinhm">
+                
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-xs-12">
+                  <span>
+                    <b>Quốc tịch:</b>
+                  </span>
+                
+                  <select class="form-control" #quoctichm="ngModel" name="quoctichm" [(ngModel)]="LLTN.quoctichm">
+                    <option value="Việt Nam" selected="selected">Việt Nam</option> 
+                    <option value="Mỹ">Mỹ</option>  
+                    <option value="Trung Quốc">Trung Quốc</option> 
+                    <option value="Hàn Quốc">Hàn Quốc</option> 
+                    <option value="Nhật Bản">Nhật Bản</option> 
+                    <option value="Liên Bang Nga">Liên Bang Nga</option> 
+                    <option value="Anh">Anh</option> 
+                    <option value="Pháp">Pháp</option> 
+                    <option value="Đức">Đức</option> 
+                    <option value="Bỉ">Bỉ</option> 
+                  
+                  </select>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                  <span >
+                    <b>Dân tộc:</b>
+                  </span>   
+                  <select class="form-control" #dantocm="ngModel" name="dantocm" [(ngModel)]="LLTN.dantocm">
+                    <option value="Kinh" selected="selected">Kinh</option> 
+                    <option value="Thái">Thái</option>  
+                    <option value="Khơ me">Khơ me</option> 
+                    <option value="Mường">Mường</option> 
+                    <option value="Nùng">Nùng</option> 
+                    <option value="Tày">Tày</option> 
+                    <option value="Dao">Dao</option> 
+                    <option value="Mông">Mông</option> 
+                    <option value="Ê đê">Ê đê</option> 
+                    <option value="Cà Nu">Cà Nu</option> 
+                  
+                  </select>
+                </div>
+              
+                <div class="col-md-4 col-xs-12 mb-10">
+                  <span >
+                    <b>Tôn giáo:</b>
+                  </span>
+                 
+                    <input type="text" #tongiaom="ngModel" name="tongiaom" [(ngModel)]="LLTN.tongiaom">
+                  
+    
+                </div>
+              </div>
+              <div class="row">
+               
+                <div class="col-md-12 col-xs-12 mb-10">
+                  <span >
+                    <b>Hộ khẩu thường trú:</b>
+                  </span>
+                    <input style="width: 100%;" type="text" #hokhauthuongtrum="ngModel" name="hokhauthuongtrum" [(ngModel)]="LLTN.hokhauthuongtrum">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-xs-12 mb-10">
+                  <span >
+                    <b>Số lượng anh chị em:</b>
+                  </span>
+                
+                    <input style="width: 100%;" type="text" #slae="ngModel" name="slae" [(ngModel)]="LLTN.slae">
+                </div>
+              
+              </div>
+           
+          
+        </div>
+    </form> 
+    &nbsp;
+    &nbsp;
+    </div>
+</div>
+
+
+
+
+

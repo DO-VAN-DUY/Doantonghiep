@@ -1,0 +1,150 @@
+<!-- TOP HEADER -->
+<nav class="navbar navbar-expand fixed-top be-top-header">
+    
+    <div class="container-fluid">
+
+        <div class="be-navbar-header">
+           
+            <a class="navbar-brands" style="padding-left:10% ;font-size:22px;color:#0000ff;">
+           
+              <b id="logo">VIET HUU</b>
+            </a>
+        </div>
+        <div class="form-inline mr-auto">
+            <ul class="navbar-nav mr-3">
+                <li>
+                    <form class="form-inline mr-auto" >
+                        <div class="search-element">
+                            <input class="form-control" type="search" placeholder="Tìm kiếm" aria-label="Search"
+                                data-width="200">
+                             <button class="btn btn-success" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+       </div>
+    
+       <div *ngIf="currentUser.role!='Quan tri du an'">  
+      
+        <button type="button" class="btn btn-success"(click)="checkin()"><a style="color:white" > Check in</a> </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-success" (click)="checkout()"><a style="color:white"> Check Out</a> </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       
+      </div>
+    
+        <div class="be-right-navbar"> 
+            <ul class="nav navbar-nav float-right be-user-nav">
+                <li class="nav-item dropdown">
+                    
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                     
+                       <b>Xin chào:{{currentUser?.name}}</b>
+                      
+                       <!-- {{user.name}} -->
+                        </a>
+                    <div class="dropdown-menu" role="menu" style="padding:0px;">
+                        <a class="dropdown-item" (click)="logout()"><span class="icon mdi mdi-power"></span>Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- người -->
+            <ul class="nav navbar-nav float-right be-icons-nav">
+              
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon mdi mdi-notifications"></span><span class="indicator"></span></a>
+                    <ul class="dropdown-menu be-notifications">
+                        <li>
+                            <div class="title"><b>Thông báo</b><span class="badge badge-pill"></span></div>
+                            <div class="list">
+                                <div class="be-scroller-notifications">
+                                    
+                                    <div *ngIf="check_cn" class="content">
+                                        Yêu cầu check in của bạn đã được chấp nhận
+                                      </div>
+                                      <div *ngIf="check_kcn" class="content">
+                                        Yêu cầu check in của bạn không được chấp nhận
+                                      </div>
+                                      <div *ngIf="check_krs" class="content">
+                                        Yêu cầu check out của bạn không được chấp nhận
+                                      </div>
+                                      <div *ngIf="check_rs" class="content">
+                                        Yêu cầu check out của bạn đã được chấp nhận
+                                      </div>
+                                    
+                                </div>
+                            </div>
+                        
+                        </li>
+                    </ul>
+                </li>
+                <!-- thông báo -->
+            </ul>
+            <ul class="nav navbar-nav float-right be-user-nav" style="padding-top:20px ;color: black;">
+            <span>{{today | date}}</span>
+            </ul> 
+        </div>        
+    </div>
+</nav>
+  <div *ngIf="loading" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="Modalss">
+    <div class="modal-dialog modal-lg">
+     <form  (ngSubmit)="Gui()" #Formlydo="ngForm">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title"><span>Lý do vào muộn</span></h5>
+          <button type="button" class="close" data-dismiss="modal" (click)="closeModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                <div class="form-group row mb-9">
+                   
+                    <div class="col-sm-12 col-md-12">
+                   
+                    <ckeditor [editor]="editor" [(ngModel)]="kiemtra.lydovaomuon" name="lydovaomuon"></ckeditor>
+                   
+                </div>
+             </div>
+            <div class="text-right">
+              <button type="submit" class="btn btn-icon icon-left btn-success" id="btnSubmit" >
+                <i class="fas fa-check"></i>
+                <span>Gửi yêu cầu</span>
+                 </button>
+            </div>
+        </div>
+      </div>
+     </form>
+    </div>
+</div>
+<div *ngIf="loadingr" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="Modals">
+    <div class="modal-dialog modal-lg">
+     <form (ngSubmit)="Guis()" #Formlydo="ngForm">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title"><span>Lý do ra som</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                <div class="form-group row mb-4">
+                  
+                    <div class="col-sm-12 col-md-12">
+                        <ckeditor [editor]="editors" [(ngModel)]="kiemtra.lydovaomuon" name="lydovaomuon"></ckeditor>
+                   
+                </div>
+             </div>
+            
+            <div class="text-right">
+              <button type="submit" class="btn btn-icon icon-left btn-success" id="btnSubmit" >
+                <i class="fas fa-check"></i>
+                <span>Gửi yêu cầu</span>
+                 </button>
+            </div>
+        </div>
+      </div>
+     </form>
+    </div>
+</div>  
+    

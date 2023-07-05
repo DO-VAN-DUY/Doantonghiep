@@ -1,0 +1,146 @@
+<!-- TOP HEADER -->
+<nav class="navbar navbar-expand fixed-top be-top-header">
+    
+    <div class="container-fluid">
+
+        <div class="be-navbar-header">
+           
+            <a class="navbar-brands" style="padding-left:10% ;font-size:22px;color:#0000ff;">
+           
+              <b id="logo">VIET HUU</b>
+            </a>
+        </div>
+        <div class="form-inline mr-auto">
+            <ul class="navbar-nav mr-3">
+                <li>
+                    <form class="form-inline mr-auto" >
+                        <div class="search-element">
+                            <input class="form-control" type="search" placeholder="Tìm kiếm" aria-label="Search"
+                                data-width="200">
+                             <button class="btn btn-success" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+       </div>
+    <div>
+        
+        <button type="button" class="btn btn-success"><a style="color:white" > Check in</a> </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       
+        <!-- @else
+        <button disabled type="button" class="btn btn-success"> Check in</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       -->
+      <!-- /  @endif -->
+        <button type="button" class="btn btn-success"><a style="color:white"> Check Out</a> </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+       
+    
+        <div class="be-right-navbar"> 
+            <ul class="nav navbar-nav float-right be-user-nav">
+                <li class="nav-item dropdown">
+                    
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                     
+                       <b>Xin chào:{{user.name}}</b>
+                      
+ 
+                        </a>
+                    <div class="dropdown-menu" role="menu" style="padding:0px;">
+                        <a class="dropdown-item" (click)="logout()"><span class="icon mdi mdi-power"></span>Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+            <!-- người -->
+            <ul class="nav navbar-nav float-right be-icons-nav">
+                <!-- <li class="nav-item dropdown"><a class="nav-link be-toggle-right-sidebar" href="#" role="button" aria-expanded="false"><span class="icon mdi mdi-settings"></span></a></li> -->
+                <!-- thông báo -->
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon mdi mdi-notifications"></span><span class="indicator"></span></a>
+                    <ul class="dropdown-menu be-notifications">
+                        <li>
+                            <div class="title">Thông báo<span class="badge badge-pill">35</span></div>
+                            <div class="list">
+                                <div class="be-scroller-notifications">
+                                    <div class="content">
+                                        <ul>
+                                            <li class="notification notification-unread">
+                                                <a href="#">
+                                                    <div class="image"><img src="/admin/assets/img/avatar2.png" ></div>
+                                                    <div class="notification-info">
+                                                        <div class="text"><span class="user-name">Nguyễn Thị Hoa</span> đã phản hồi đồ uống nước ép cam.</div><span class="date">2 giờ trước</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="notification">
+                                                <a href="#">
+                                                    <div class="image"><img src="/admin/assets/img/avatar3.png" ></div>
+                                                    <div class="notification-info">
+                                                        <div class="text"><span class="user-name">Phạn Văn Thanh</span> đã nhận được hàng</div><span class="date">3 ngày trước</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="notification">
+                                                <a href="#">
+                                                    <div class="image"><img src="/admin/assets/img/avatar4.png"></div>
+                                                    <div class="notification-info">
+                                                        <div class="text"><span class="user-name">Quản Thanh Hải</span> đã yêu thích đồ uống kem trái dừa, sinh tố bơ và sầu riêng cốt dừa</div><span class="date">1 giờ trước</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="notification">
+                                                <a href="#">
+                                                    <div class="image"><img src="/admin/assets/img/avatar5.png" ></div>
+                                                    <div class="notification-info"><span class="text"><span class="user-name">Uyên Chi</span> đã để lại phản hồi</span><span class="date">5 ngày trước</span></div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer"> <a href="#">Xem tất cả</a></div>
+                        </li>
+                    </ul>
+                </li>
+                <!-- thông báo -->
+            </ul>
+            <ul class="nav navbar-nav float-right be-user-nav" style="padding-top:20px ;color: black;">
+            <span>{{today | date}}</span>
+            <!-- <script>
+                    var myVar = setInterval(function () { myTimer() }, 1000);
+                    function myTimer() {
+                    var d = new Date();
+                    var t = d.toLocaleTimeString();
+                    document.getElementById("h").innerHTML = t;
+                    }
+              
+               
+                    n = new Date();
+                    if (n.getTimezoneOffset() == 0) t = n.getTime() + (7 * 60 * 60 * 1000);
+                    else t = n.getTime();
+                    n.setTime(t);
+                    var dn = new Array("Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7");
+                    d = n.getDay();
+                    m = n.getMonth() + 1;
+                    y = n.getFullYear()
+                    document.write(dn[d] + ", " + (n.getDate() < 10 ? "0" : "") + n.getDate() + "/" + (m < 10 ? "0" :
+                    "") + m + "/" + y + "&nbsp;&nbsp;|&nbsp;&nbsp;")
+                </script>
+                <span id="h"></span> -->
+            </ul> 
+          
+           
+          
+           
+           
+        </div>
+      
+        
+           
+            
+    </div>
+</nav>
+<!-- TOP HEADER -->

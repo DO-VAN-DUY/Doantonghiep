@@ -1,0 +1,222 @@
+<div class="be-content">
+    <div class="page-head">
+       
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="row" style="padding:10px; border-width: 1px;">
+          <div class="col-12" >
+            <div class="page-title-box" >
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a [routerLink]="['/homes/chinhanh']" >Homes</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/homes/nhanvien']">nhanvien</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/homes/phucap']">phucap</a></li>
+                       
+                    </ol>
+                </div>
+               
+            </div>
+        </div>
+          </div>
+
+            <!-- <button type="button" class="btn btn-success"><a style="color:white;" name="save" href="{{ route('admin.tinhluong') }}"> Tính lương</a> </button> -->
+            <div style="padding:15px;">
+              <button type="button" class="btn btn-success" (click)="openModel(true,null)"><a style="color:white;" name="save">Thêm bản ghi </a></button>
+            </div>
+              <div class="row">
+    
+              </div>
+           
+            <div class="col-12 col-md-12 col-lg-12" style="text-align:right;color: black;">Hiển thị &nbsp;
+              <label class="mr-3"><select class="custom-select" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+                <option [ngValue]="1">1 </option>
+                <option [ngValue]="5">5 </option>
+                <option [ngValue]="8">8 </option> 
+                <option [ngValue]="15">15 </option>
+            </select></label>
+             Tổng số &nbsp;<ins ng-bind="totalItems" class="text-info"></ins>&nbsp; bản ghi
+             
+             <input type="text" [(ngModel)]="filterBy" style="width:200px;"placeholder="Tìm kiếm theo tên...">
+             <!-- &nbsp;
+             <button type="button" (click)="search(keyword)" class="btn btn-success"><a style="color:white;" name="save">Tìm kiếm</a></button> -->
+            </div>
+        
+    </div>
+    <div class="idin-content container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-header">
+                    </div>
+
+                    <div class="card-body">
+                        <table class="table table-striped table-hover table-fw-widget">
+                            <thead>
+                                <tr style="background-color: aquamarine;">                                  
+                                    <th>Stt</th>
+                                    <th>Họ và tên</th>
+                                    <th>Số QĐ</th>
+                                    <th>Tên phụ cấp</th>
+                                    <th>Số tiền</th>
+                                    <th>Ngày ký</th>
+                                    <th>Ngày hiệu lực</th> 
+                                    <th></th>          
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let it of list_item; let i= index">
+                                    <td>{{++i+1}}</td>
+                                    <td>
+                                      <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035976'" >Do Thi Quynh</span>
+                                      <span *ngIf="it.idnv=='3197F0F2-35D3-4231-919D-1CFCF4035979'" >Đỗ Huy Hoàng</span>
+                                      <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035977'" >Do Thi Ly</span>
+                                      <span *ngIf="it.idnv=='019a1506-d9fb-4164-a9f2-a648d59322c7'" >Đỗ  Bảo Thanh</span>
+                                      <span *ngIf="it.idnv=='17e782c9-d0cd-4a44-baa5-46a7990384e2'" >Đỗ Thu Diệp</span>
+                                      <span *ngIf="it.idnv=='27f4d8ec-ff2a-4f0c-82ce-e65c6bf598e4'" >Đỗ Hoài An</span>
+                                      <span *ngIf="it.idnv=='2a5c4eff-cb61-46e9-9acb-4f9d4bbe7861'" >Đỗ Khả Hân</span>
+                                      <span *ngIf="it.idnv=='2b73c881-9ae6-4f92-bccc-f1900b3bbeff'" >Đỗ Minh Anh</span>
+                                      <span *ngIf="it.idnv=='2e205c5c-409b-47b2-b5b7-9470c5ec4f67'" >Đỗ Bích Diệp</span>
+                                      <span *ngIf="it.idnv=='310816be-32cb-41b5-be3e-d60fee9e2118'" >Đỗ Thu Nguyệt</span>
+                                      <span *ngIf="it.idnv=='34625ff9-4063-4dea-9464-70665b7f1095'" >Đỗ Quỳnh Nhi</span>
+                                      <span *ngIf="it.idnv=='496e3113-e125-4edd-b376-91b20cf91b3c'" >Đỗ  Hồng Nhung</span>
+                                      <span *ngIf="it.idnv=='4bb9fb88-64aa-4ae2-9dde-3f2a7edaaf1f'" >Đỗ Kim Thanh</span>
+                                      <span *ngIf="it.idnv=='4de721dd-96d7-4fcb-8676-52c40896a6a2'" >Đỗ Thùy Anh</span>
+                                      <span *ngIf="it.idnv=='50bc562d-1f25-49ce-b3f5-2c694673cbcf'" >Đỗ Thanh Trúc</span>
+                                      <span *ngIf="it.idnv=='5fd27f1b-e889-4ba5-b407-4d579237a978'" >Đỗ Huyền Anh</span>
+                                      <span *ngIf="it.idnv=='7626f612-4e91-45e5-b739-efc5213e6fda'" >Đỗ Trâm Anh</span>
+                                      <span *ngIf="it.idnv=='853c017f-13b6-4a71-b845-b081af2e5863'" >Đỗ Nguyệt Ánh</span>
+                                      <span *ngIf="it.idnv=='8c81d052-13ee-40e8-804a-5abae2574a89'" >Đỗ Tú Uyên</span>
+                                      <span *ngIf="it.idnv=='9472cfb9-35ac-4c2e-a7b6-97f85d0b42ae'" >Đỗ Khánh Linh</span>
+                                      <span *ngIf="it.idnv=='9a06948d-a47f-4646-b37d-dec781e313cf'" >Đỗ  Tuyết Lan</span>
+                                      <span *ngIf="it.idnv=='cc66abf1-a564-4ca2-9167-5c426b4dee68'" >Đỗ Gia Hân</span>
+                                      <span *ngIf="it.idnv=='ddba3424-cb26-4759-b7bd-fd2cc5e2b041'" >Đỗ Diễm My</span>
+                                      <span *ngIf="it.idnv=='de68c2ab-6814-4a28-bd48-2b780ecc40d6'" >Đỗ Tuệ Nhi</span>
+                                      <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035971'" >Phạm Thanh Giang</span>
+                                      <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035972'" >Lê Thanh Quang</span>
+                                      <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035973'" >Nguyễn Văn Hùng</span>
+                                      <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035974'" >Lê Thành An</span>
+                                      <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035978'" >Trương Hoàng Nhất</span>
+                                      <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035979'" >Hoàng Văn Thanh</span>
+                                      <span *ngIf="it.idnv=='3307F0F2-35D3-4231-919D-1CFCF4035979'" >Pham min</span>
+                                    </td>
+                                    <td>{{it.soQD}}</td>                                 
+                                    <td>{{it.tenphucap}}</td> 
+                                    <td>{{it.sotien| currency:'VND'}}</td>    
+                                    <td>{{it.ngayky | date:'dd/MM/YYYY'}}</td>    
+                                    <td>{{it.ngayhieuluc| date:'dd/MM/YYYY'}}</td>
+                                    <td>
+                                        <button data-toggle="modal" data-target=".bd-example-modal-lg" title="Sửa" (click)="openModel(false,it)"
+                                        class="btn btn-icon btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                        </button>
+                                        
+                                        <button title="Xóa" (click)="DeleteModel(it.id)" style="color: #fff" class="btn btn-icon btn-warning">
+                                        <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>               
+                                                
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="loadPage($event)" (page)="page" (pageSize)="pageSize" (collectionSize)="totalItem" ></pagination-controls> -->
+                        <div class="d-flex justify-content-between p-2">
+                          <ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+                          </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="largeModal">
+<div class="modal-dialog modal-lg">
+ <form name="formLogin" (ngSubmit)="phucaps()" #Formphucap="ngForm">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" *ngIf="!isEdit"><span>Thêm phụ cấp</span></h5>
+      <h5 class="modal-title" *ngIf="isEdit"><span>Sửa phụ cấp</span></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+        Tên nhân viên<span style="color:red ;">*</span>:
+        </label>
+        <div class="col-sm-12 col-md-7">
+        <select class="form-control" #idnv="ngModel" name="idnv" [(ngModel)]="phucap.idnv" required>
+          <option value="">--Chọn tên nhân viên--</option>  
+          <option *ngFor="let it of list_itemnv" value="{{it.id}}">{{it.hoten}}</option>
+          <small *ngIf="!idnv?.valid && (idnv?.dirty||idnv.touched)"class="help-block">Tên nhân viên không hợp lệ !</small>
+        </select>
+       </div>
+      </div>
+      <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+          Tên phụ cấp  <span style="color:red ;">*</span>:
+        </label>
+        <div class="col-sm-12 col-md-7">
+          <input type="text" class="form-control"  placeholder="Nhập tên phụ cấp..."  #tenphucap="ngModel" [(ngModel)]="phucap.tenphucap"  name="tenphucap"
+            required>
+          <small *ngIf="!tenphucap?.valid && (tenphucap?.dirty||tenphucap.touched)"class="help-block">Tên phụ cấp không hợp lệ !</small>
+        </div>
+    </div>
+    <div class="form-group row mb-4">
+      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+        Số HĐ  <span style="color:red ;">*</span>:
+      </label>
+      <div class="col-sm-12 col-md-7">
+        <input type="text" class="form-control"  placeholder="Nhập số hợp đồng..."  #soQD="ngModel" [(ngModel)]="phucap.soQD"  name="soQD"
+          required>
+        <small *ngIf="!soQD?.valid && (soQD?.dirty||soQD.touched)"class="help-block">Số QĐ không hợp lệ !</small>
+      </div>
+  </div>
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+          Số tiền  <span style="color:red ;">*</span>:
+        </label>
+        <div class="col-sm-12 col-md-7">
+          <input type="text" class="form-control"  placeholder="Nhập số tiền..."  #sotien="ngModel" [(ngModel)]="phucap.sotien"  name="sotien"
+            required>
+          <small *ngIf="!sotien?.valid && (sotien?.dirty||sotien.touched)"class="help-block">Số tiền không hợp lệ !</small>
+        </div>
+    </div>
+      
+        <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Ngày ký<span style="color:red ;">*</span>:
+            </label>
+            <div class="col-sm-12 col-md-7">
+              <input type="date" class="form-control" #ngayky="ngModel" [(ngModel)]="phucap.ngayky" name="ngayky"  required>
+            
+            </div>
+          </div>
+          <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Ngày hiệu lực<span style="color:red ;">*</span>:
+            </label>
+            <div class="col-sm-12 col-md-7">
+              <input type="date" class="form-control" #ngayhieuluc="ngModel" [(ngModel)]="phucap.ngayhieuluc" name="ngayhieuluc"  required>
+            
+            </div>
+          </div>
+        <div class="text-right">
+          <button type="button" class="btn btn-icon icon-left btn-success" (click)="closeModal()">Close</button>
+          &nbsp;
+          <button type="submit" class="btn btn-icon icon-left btn-success" [disabled]="loading" *ngIf="!isEdit" (click)="addphucap()"  id="btnSubmit" >
+            <i class="fas fa-check"></i>
+            <span>Saves</span>
+             </button>
+             &nbsp;
+          <button type="submit" class="btn btn-icon icon-left btn-success" *ngIf="isEdit" (click)="Editphucap()" id="btnSubmit" >
+            <i class="fas fa-check"></i>
+            <span>Save</span>
+          </button>
+        </div>
+    </div>
+  </div>
+ </form>
+</div>
+</div>
+

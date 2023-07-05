@@ -1,0 +1,27 @@
+<div id="particles-js">
+    <form name="formLogin" (ngSubmit)="login()" #loginForm="ngForm">
+        <div class="form-box">
+            <div class="header-text">
+                Đăng nhập
+            </div>
+           <div>
+            <input name="taikhoan" [(ngModel)]="model.taikhoan" #taikhoan="ngModel"  placeholder="Nhập tài khoản..." type="text" id="account"   >
+               <small *ngIf="!taikhoan.valid && (taikhoan?.dirty || taikhoan?.touched)" class="help-block">Tài khoản is invalid or empty!</small>
+              <!-- (email?.dirty || email?.touched) đang nhập hoặc chạm vào thì mới báo lỗi -->
+           </div>
+           <div >
+            <input name="password" [(ngModel)]="model.password" #password="ngModel" type="password" id="password" placeholder="Nhập mật khẩu..."  required>
+              <small *ngIf="!password.valid && (password?.dirty || password?.touched) " class="help-block">Password is invalid or empty!</small>
+           </div>
+           <div *ngIf="error" style="color: #fff;" style="color: rgb(222, 17, 17);">
+            Tài khoản hoặc mật khẩu không đúng!
+          </div>
+            <button type="submit" [disabled]="loading" name="submit">Đăng nhập</button>
+           <div class="col-sm-12" >
+            <a class="col-sm-6" [routerLink]="['/register']" routerLinkActive="router-link-active" >Đăng ký</a>
+            <a class="col-sm-6" [routerLink]="['/quenmatkhau']" style="padding-left: 35%;" class="reset_pass">Quên mật khẩu</a>
+           </div>
+            
+        </div>
+    </form>
+</div>

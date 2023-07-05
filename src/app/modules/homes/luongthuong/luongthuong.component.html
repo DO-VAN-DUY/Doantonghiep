@@ -1,0 +1,473 @@
+<div class="be-content">
+
+    <div class="page-head">
+       
+        <button type="button" class="btn btn-success" (click)="Tinhluong()"><a style="color:white;" name="save">  Tính lương </a></button>
+      
+          <div class="col-md-12">
+      
+            <!-- Basic layout-->
+            <form  class="form-horizontal" #Formluong="ngForm" (ngSubmit)="LoadData()">
+              <div class="panel panel-flat">
+                <div class="panel-heading">
+                  <h5 class="panel-title" style="padding-left:10%;"><b>Lọc thông tin</b></h5>
+                </div>
+                <div class="panel-body">
+                 
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                      Tên phòng ban:
+                    </label>
+                    <div class="col-sm-12 col-md-7">
+                      <select #mapb="ngModel" name="mapb" [(ngModel)]="luong.mapb"  class="form-control" required>
+                        <option value="">--Chọn tên phòng ban cần tìm--</option>  
+                        <option *ngFor="let it of list_phongban" value="{{it.id}}">{{it.tenpb}}</option>
+                      </select>
+                  </div>   
+                  </div>
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                      Tên tổ nhóm:
+                    </label>
+                    <div class="col-sm-12 col-md-7">
+                      <select (click)="Mapb()" #matn="ngModel" name="matn" [(ngModel)]="luong.matn"  class="form-control" required>
+                        <option value="">--Chọn tên tổ nhóm cần tìm--</option>  
+                        <option *ngFor="let it of list_tonhom" value="{{it.id}}">{{it.tentn}}</option>
+                      </select>
+                  </div>   
+                  </div>
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                      Tên nhân viên:
+                    </label>
+                    <div class="col-sm-12 col-md-7">
+                      <select (click)="Matn()" #idnv="ngModel" name="idnv" [(ngModel)]="luong.idnv" class="form-control" required>
+                        <option value="">--Chọn tên nhân viên cần tìm--</option>  
+                        <option *ngFor="let it of list_nhanvien" value="{{it.id}}">{{it.hoten}}</option>
+                      </select>
+                  </div>   
+                  </div>
+                
+              <button class="btn btn-success" type="submit" style="margin-left:20%;">Tìm kiếm</button>
+            
+                 
+                </div>
+              </div>
+            </form>
+            <!-- /basic layout -->
+          </div>
+       
+        <div class="col-12 col-md-12 col-lg-12" style="text-align:right; color: black;">
+        
+          Hiển thị &nbsp;<label class="mr-3"><select class="custom-select" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+            <option [ngValue]="1">1 </option>
+            <option [ngValue]="5">5 </option>
+            <option [ngValue]="8">8 </option>
+            <option [ngValue]="10">10 </option> 
+            <option [ngValue]="15">15 </option>
+        </select></label>
+          Tổng số &nbsp;<ins ng-bind="totalItems" class="text-info"></ins>&nbsp; bản ghi
+          <button type="button" class="btn btn-success" (click)="exportExcelLT()" style="float: right;margin-top: 15px;margin: 10px;">Xuất dữ liệu</button>
+      </div>
+      
+    </div>
+    <div class="idin-content container-fluid">
+        <div class="row">
+              <div class="col-sm-12">
+                <div class="card card-table"> 
+                 
+                    <div class="card-body">
+                        <table class="table table-striped table-hover table-fw-widget" id="excel_luongthang" >
+                            <thead>
+                                <tr style="background-color: aquamarine;">
+                                    <th>STT</th>
+                                    <th>Tên nhân viên</th>
+                                  
+                                    <th>Ngày hợp lệ</th>
+                                    <th>Ngày thiếu</th>
+                                    <th>Ngày công chết</th>
+                                    <th>Tháng</th>
+                                  
+                                    <th>Lương thỏa thuận</th>
+                                    <th> Thưởng </th>
+                                    <th>Phạt</th>
+                                    <th>Phụ cấp</th>
+                                    <th>Lương nhận được</th>
+                                 
+                                    
+                                    <th>Người xử lý</th>
+                                    <th></th>
+                                  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                  <tr *ngFor="let it of luongnv ; let i= index">
+                                    <td>{{++i+1}}</td>
+                                      <td>
+                                        <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035976'" >Do Thi Quynh</span>
+                                        <span *ngIf="it.idnv=='3197F0F2-35D3-4231-919D-1CFCF4035979'" >Đỗ Huy Hoàng</span>
+                                        <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035977'" >Do Thi Ly</span>
+                                        <span *ngIf="it.idnv=='019a1506-d9fb-4164-a9f2-a648d59322c7'" >Đỗ  Bảo Thanh</span>
+                                        <span *ngIf="it.idnv=='17e782c9-d0cd-4a44-baa5-46a7990384e2'" >Đỗ Thu Diệp</span>
+                                        <span *ngIf="it.idnv=='27f4d8ec-ff2a-4f0c-82ce-e65c6bf598e4'" >Đỗ Hoài An</span>
+                                        <span *ngIf="it.idnv=='2a5c4eff-cb61-46e9-9acb-4f9d4bbe7861'" >Đỗ Khả Hân</span>
+                                        <span *ngIf="it.idnv=='2b73c881-9ae6-4f92-bccc-f1900b3bbeff'" >Đỗ Minh Anh</span>
+                                        <span *ngIf="it.idnv=='2e205c5c-409b-47b2-b5b7-9470c5ec4f67'" >Đỗ Bích Diệp</span>
+                                        <span *ngIf="it.idnv=='310816be-32cb-41b5-be3e-d60fee9e2118'" >Đỗ Thu Nguyệt</span>
+                                        <span *ngIf="it.idnv=='34625ff9-4063-4dea-9464-70665b7f1095'" >Đỗ Quỳnh Nhi</span>
+                                        <span *ngIf="it.idnv=='496e3113-e125-4edd-b376-91b20cf91b3c'" >Đỗ  Hồng Nhung</span>
+                                        <span *ngIf="it.idnv=='4bb9fb88-64aa-4ae2-9dde-3f2a7edaaf1f'" >Đỗ Kim Thanh</span>
+                                        <span *ngIf="it.idnv=='4de721dd-96d7-4fcb-8676-52c40896a6a2'" >Đỗ Thùy Anh</span>
+                                        <span *ngIf="it.idnv=='50bc562d-1f25-49ce-b3f5-2c694673cbcf'" >Đỗ Thanh Trúc</span>
+                                        <span *ngIf="it.idnv=='5fd27f1b-e889-4ba5-b407-4d579237a978'" >Đỗ Huyền Anh</span>
+                                        <span *ngIf="it.idnv=='7626f612-4e91-45e5-b739-efc5213e6fda'" >Đỗ Trâm Anh</span>
+                                        <span *ngIf="it.idnv=='853c017f-13b6-4a71-b845-b081af2e5863'" >Đỗ Nguyệt Ánh</span>
+                                        <span *ngIf="it.idnv=='8c81d052-13ee-40e8-804a-5abae2574a89'" >Đỗ Tú Uyên</span>
+                                        <span *ngIf="it.idnv=='9472cfb9-35ac-4c2e-a7b6-97f85d0b42ae'" >Đỗ Khánh Linh</span>
+                                        <span *ngIf="it.idnv=='9a06948d-a47f-4646-b37d-dec781e313cf'" >Đỗ  Tuyết Lan</span>
+                                        <span *ngIf="it.idnv=='cc66abf1-a564-4ca2-9167-5c426b4dee68'" >Đỗ Gia Hân</span>
+                                        <span *ngIf="it.idnv=='ddba3424-cb26-4759-b7bd-fd2cc5e2b041'" >Đỗ Diễm My</span>
+                                        <span *ngIf="it.idnv=='de68c2ab-6814-4a28-bd48-2b780ecc40d6'" >Đỗ Tuệ Nhi</span>
+                                        <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035971'" >Phạm Thanh Giang</span>
+                                        <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035972'" >Lê Thanh Quang</span>
+                                        <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035973'" >Nguyễn Văn Hùng</span>
+                                        <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035974'" >Lê Thành An</span>
+                                        <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035978'" >Trương Hoàng Nhất</span>
+                                        <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035979'" >Hoàng Văn Thanh</span>
+                                        <span *ngIf="it.idnv=='3307F0F2-35D3-4231-919D-1CFCF4035979'" >Pham min</span>
+
+                                 
+                                      </td>
+                                      <td>{{it.ngayconghople }}</td>
+                                      <td>{{it.ngaycongkohople}}</td>
+                                      <td>{{it.ngaykhongduoctinh}}</td>
+                                      <td>{{it.thang}}</td>
+                                      <td>{{it.luongthang|number}}</td>
+                                      <td>{{it.thuong|number}}</td>
+                                      <td>{{it.phat|number}}</td>
+                                      <td>{{it.phucap|number}}</td>
+                                      <td>{{it.luongnhandc|number}}</td>
+                                      <td>
+                                          {{it.nguoixuly}} 
+                                      </td>
+                                      <td>
+                                        <button data-toggle="modal" data-target=".bd-example-modal-lg" title="Sửa" (click)="Update(it)"
+                                        class="btn btn-icon btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                        </button>
+                                        &nbsp;
+                                        <button title="Xem" (click)="Xemchitiet(it)" style="color: #fff" class="btn btn-success">
+                                          <i class="fa fa-eye"></i>
+                                          </button>
+                                          &nbsp;
+                                          <button title="Luong" (click)="TKL(it)" style="color: #fff" class="btn btn-secondary">
+                                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                            </button>
+                                         
+                                      </td>
+                                  </tr>
+                               
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-between p-2">
+                          <ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+                          </ngb-pagination>
+                        </div>
+                       
+                      
+                          <button  style="margin-left: 85%;" (click)="Delete()" class="btn btn-danger">
+                            Xóa dữ liệu
+                              </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Kiểm tra thông tin</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-striped table-hover table-fw-widget">
+              <thead>
+                  <tr>                                  
+  
+                      <th>Tên nhân viên</th>
+                      <th>Ngày</th>
+                                    <th>Thời gian vào</th>
+                                    <th>Thời gian ra</th>
+                                    <th>Hợp lệ</th>
+    
+                     
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let it of LS">
+                   
+                   
+                      
+                        <td>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035976'" >Do Thi Quynh</span>
+                          <span *ngIf="it.idnv=='3197F0F2-35D3-4231-919D-1CFCF4035979'" >Đỗ Huy Hoàng</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035977'" >Do Thi Ly</span>
+                          <span *ngIf="it.idnv=='019a1506-d9fb-4164-a9f2-a648d59322c7'" >Đỗ  Bảo Thanh</span>
+                          <span *ngIf="it.idnv=='17e782c9-d0cd-4a44-baa5-46a7990384e2'" >Đỗ Thu Diệp</span>
+                          <span *ngIf="it.idnv=='27f4d8ec-ff2a-4f0c-82ce-e65c6bf598e4'" >Đỗ Hoài An</span>
+                          <span *ngIf="it.idnv=='2a5c4eff-cb61-46e9-9acb-4f9d4bbe7861'" >Đỗ Khả Hân</span>
+                          <span *ngIf="it.idnv=='2b73c881-9ae6-4f92-bccc-f1900b3bbeff'" >Đỗ Minh Anh</span>
+                          <span *ngIf="it.idnv=='2e205c5c-409b-47b2-b5b7-9470c5ec4f67'" >Đỗ Bích Diệp</span>
+                          <span *ngIf="it.idnv=='310816be-32cb-41b5-be3e-d60fee9e2118'" >Đỗ Thu Nguyệt</span>
+                          <span *ngIf="it.idnv=='34625ff9-4063-4dea-9464-70665b7f1095'" >Đỗ Quỳnh Nhi</span>
+                          <span *ngIf="it.idnv=='496e3113-e125-4edd-b376-91b20cf91b3c'" >Đỗ  Hồng Nhung</span>
+                          <span *ngIf="it.idnv=='4bb9fb88-64aa-4ae2-9dde-3f2a7edaaf1f'" >Đỗ Kim Thanh</span>
+                          <span *ngIf="it.idnv=='4de721dd-96d7-4fcb-8676-52c40896a6a2'" >Đỗ Thùy Anh</span>
+                          <span *ngIf="it.idnv=='50bc562d-1f25-49ce-b3f5-2c694673cbcf'" >Đỗ Thanh Trúc</span>
+                          <span *ngIf="it.idnv=='5fd27f1b-e889-4ba5-b407-4d579237a978'" >Đỗ Huyền Anh</span>
+                          <span *ngIf="it.idnv=='7626f612-4e91-45e5-b739-efc5213e6fda'" >Đỗ Trâm Anh</span>
+                          <span *ngIf="it.idnv=='853c017f-13b6-4a71-b845-b081af2e5863'" >Đỗ Nguyệt Ánh</span>
+                          <span *ngIf="it.idnv=='8c81d052-13ee-40e8-804a-5abae2574a89'" >Đỗ Tú Uyên</span>
+                          <span *ngIf="it.idnv=='9472cfb9-35ac-4c2e-a7b6-97f85d0b42ae'" >Đỗ Khánh Linh</span>
+                          <span *ngIf="it.idnv=='9a06948d-a47f-4646-b37d-dec781e313cf'" >Đỗ  Tuyết Lan</span>
+                          <span *ngIf="it.idnv=='cc66abf1-a564-4ca2-9167-5c426b4dee68'" >Đỗ Gia Hân</span>
+                          <span *ngIf="it.idnv=='ddba3424-cb26-4759-b7bd-fd2cc5e2b041'" >Đỗ Diễm My</span>
+                          <span *ngIf="it.idnv=='de68c2ab-6814-4a28-bd48-2b780ecc40d6'" >Đỗ Tuệ Nhi</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035971'" >Phạm Thanh Giang</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035972'" >Lê Thanh Quang</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035973'" >Nguyễn Văn Hùng</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035974'" >Lê Thành An</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035978'" >Trương Hoàng Nhất</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035979'" >Hoàng Văn Thanh</span>
+                          <span *ngIf="it.idnv=='3307F0F2-35D3-4231-919D-1CFCF4035979'" >Pham min</span>
+
+                   
+                        </td>
+                    
+                      <td>
+                       {{it.ngay| date:'dd/MM/YYYY'}}
+                      </td>
+                      <td>
+                        {{it.giovao |date : "mediumTime"}}
+                      </td>
+                      <td>{{it.giora |date : "mediumTime"}}</td>
+                      <td> <span *ngIf="it.hople==1"><i class="fa fa-check-square-o" aria-hidden="true" style="font-size:17px;color:rgb(216, 192, 13)"></i></span>
+                                        
+                        <span *ngIf="it.hople==0"><i class="fa fa-check-square-o" aria-hidden="true" style="font-size:17px;color:green"></i></span>
+                   
+                        <span *ngIf="it.hople==-1"><i class="fa fa-window-close" aria-hidden="true" style="font-size:15px;"></i></span>
+                      </td>
+                     
+                                
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()" data-dismiss="modal">Close</button>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Thông tin lương  </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div>
+            <button type="button" class="btn btn-success" (click)="exportExcel()" style="float: right; margin-top: 5px; margin-right: 2px;">Export</button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-striped table-hover table-fw-widget" id="excel_table">
+              <thead>
+                  <tr>                                  
+  
+                      <th>Tên nhân viên</th>
+                      <th>Ngày hợp lệ</th>
+                                    <th>Ngày công thiếu</th>
+                                    <th>Ngày công chết</th>
+                                    <th>Tháng</th>
+                                    <th>Tiền lương</th>
+    
+                     
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let it of list_check">
+                   
+                   
+                      <td>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035976'" >Do Thi Quynh</span>
+                          <span *ngIf="it.idnv=='3197F0F2-35D3-4231-919D-1CFCF4035979'" >Đỗ Huy Hoàng</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035977'" >Do Thi Ly</span>
+                          <span *ngIf="it.idnv=='019a1506-d9fb-4164-a9f2-a648d59322c7'" >Đỗ  Bảo Thanh</span>
+                          <span *ngIf="it.idnv=='17e782c9-d0cd-4a44-baa5-46a7990384e2'" >Đỗ Thu Diệp</span>
+                          <span *ngIf="it.idnv=='27f4d8ec-ff2a-4f0c-82ce-e65c6bf598e4'" >Đỗ Hoài An</span>
+                          <span *ngIf="it.idnv=='2a5c4eff-cb61-46e9-9acb-4f9d4bbe7861'" >Đỗ Khả Hân</span>
+                          <span *ngIf="it.idnv=='2b73c881-9ae6-4f92-bccc-f1900b3bbeff'" >Đỗ Minh Anh</span>
+                          <span *ngIf="it.idnv=='2e205c5c-409b-47b2-b5b7-9470c5ec4f67'" >Đỗ Bích Diệp</span>
+                          <span *ngIf="it.idnv=='310816be-32cb-41b5-be3e-d60fee9e2118'" >Đỗ Thu Nguyệt</span>
+                          <span *ngIf="it.idnv=='34625ff9-4063-4dea-9464-70665b7f1095'" >Đỗ Quỳnh Nhi</span>
+                          <span *ngIf="it.idnv=='496e3113-e125-4edd-b376-91b20cf91b3c'" >Đỗ  Hồng Nhung</span>
+                          <span *ngIf="it.idnv=='4bb9fb88-64aa-4ae2-9dde-3f2a7edaaf1f'" >Đỗ Kim Thanh</span>
+                          <span *ngIf="it.idnv=='4de721dd-96d7-4fcb-8676-52c40896a6a2'" >Đỗ Thùy Anh</span>
+                          <span *ngIf="it.idnv=='50bc562d-1f25-49ce-b3f5-2c694673cbcf'" >Đỗ Thanh Trúc</span>
+                          <span *ngIf="it.idnv=='5fd27f1b-e889-4ba5-b407-4d579237a978'" >Đỗ Huyền Anh</span>
+                          <span *ngIf="it.idnv=='7626f612-4e91-45e5-b739-efc5213e6fda'" >Đỗ Trâm Anh</span>
+                          <span *ngIf="it.idnv=='853c017f-13b6-4a71-b845-b081af2e5863'" >Đỗ Nguyệt Ánh</span>
+                          <span *ngIf="it.idnv=='8c81d052-13ee-40e8-804a-5abae2574a89'" >Đỗ Tú Uyên</span>
+                          <span *ngIf="it.idnv=='9472cfb9-35ac-4c2e-a7b6-97f85d0b42ae'" >Đỗ Khánh Linh</span>
+                          <span *ngIf="it.idnv=='9a06948d-a47f-4646-b37d-dec781e313cf'" >Đỗ  Tuyết Lan</span>
+                          <span *ngIf="it.idnv=='cc66abf1-a564-4ca2-9167-5c426b4dee68'" >Đỗ Gia Hân</span>
+                          <span *ngIf="it.idnv=='ddba3424-cb26-4759-b7bd-fd2cc5e2b041'" >Đỗ Diễm My</span>
+                          <span *ngIf="it.idnv=='de68c2ab-6814-4a28-bd48-2b780ecc40d6'" >Đỗ Tuệ Nhi</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035971'" >Phạm Thanh Giang</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035972'" >Lê Thanh Quang</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035973'" >Nguyễn Văn Hùng</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035974'" >Lê Thành An</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035978'" >Trương Hoàng Nhất</span>
+                          <span *ngIf="it.idnv=='3297F0F2-35D3-4231-919D-1CFCF4035979'" >Hoàng Văn Thanh</span>
+                          <span *ngIf="it.idnv=='3307F0F2-35D3-4231-919D-1CFCF4035979'" >Pham min</span>
+                      <td>
+                       {{it.ngayconghople}}
+                      </td>
+                      <td>
+                        {{it.ngaycongkohople}}
+                      </td>
+                      <td>{{it.ngaykhongduoctinh}}</td>
+                      <td>{{it.thang}}</td>
+                      <td>{{it.luongnhandc}}</td>
+                                
+                  </tr>
+              </tbody>
+          </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()" data-dismiss="modal">Close</button>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="largeModal">
+      <div class="modal-dialog modal-lg">
+        <form name="formLogin"  #Formluong="ngForm" >
+        <div class="modal-content">
+          <div class="modal-header" style="background-color:rgb(197, 238, 224);">
+            
+            <h5 class="modal-title"><span><b>Cập nhật thông tin</b></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                
+                  <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                        Tên nhân viên<span style="color:red ;">*</span>:
+                      </label>
+                      <div class="col-sm-12 col-md-7">
+                        <select class="form-control" #idnv="ngModel" name="idnv" [(ngModel)]="luong.idnv" disabled="disabled"required>
+                          <option value="">--Chọn tên nhân viên--</option>  
+                          <option *ngFor="let it of list_nhanvien" value="{{it.id}}">{{it.hoten}}</option>
+                        </select>
+                     </div>   
+                    
+                  </div>
+               
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                Ngày công hợp lệ<span style="color:red ;">*</span>:
+                </label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" class="form-control" #ngayconghople="ngModel" [(ngModel)]="luong.ngayconghople" name="ngayconghople"  required>
+                  
+                </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+              Ngày công ko hợp lệ<span style="color:red ;">*</span>:
+              </label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" #ngaycongkohople="ngModel" [(ngModel)]="luong.ngaycongkohople" name="ngaycongkohople"  required>
+              
+              </div>
+          </div>
+            <div class="form-group row mb-4">
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                    Ngày công chết<span style="color:red ;">*</span>:
+                  </label>
+                  <div class="col-sm-12 col-md-7">
+                    <input type="text" class="form-control" #ngaykhongduoctinh="ngModel"[(ngModel)]="luong.ngaykhongduoctinh" name="ngaykhongduoctinh"
+                      required>
+                   
+                  </div>
+            </div>
+                <div class="form-group row mb-4">
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                  Lương thỏa thuận <span style="color:red ;">*</span>:
+                  </label>
+                  <div class="col-sm-12 col-md-7">
+                    <input type="text" class="form-control" #luongthang="ngModel" [(ngModel)]="luong.luongthang" name="luongthang"  required>           
+                  </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                Thưởng <span style="color:red ;">*</span>:
+                </label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" class="form-control" #thuong="ngModel" [(ngModel)]="luong.thuong" name="thuong"  required>           
+                </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+              Phạt <span style="color:red ;">*</span>:
+              </label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" #phat="ngModel" [(ngModel)]="luong.phat" name="phat"  required>           
+              </div>
+          </div>
+          <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Phục cấp <span style="color:red ;">*</span>:
+            </label>
+            <div class="col-sm-12 col-md-7">
+              <input type="text" class="form-control" #phucap="ngModel" [(ngModel)]="luong.phucap" name="phucap"  required>           
+            </div>
+        </div>
+        <div class="form-group row mb-4">
+          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+          Lương nhận được <span style="color:red ;">*</span>:
+          </label>
+          <div class="col-sm-12 col-md-7">
+            <input type="text" class="form-control" #luongnhandc="ngModel" [(ngModel)]="luong.luongnhandc" name="luongnhandc" disabled="disabled" required>           
+          </div>
+      </div>
+              <div class="text-right">
+      
+                  <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+                
+                  &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-icon icon-left btn-success" (click)="Updateluong()" id="btnSubmit" >
+                  <i class="fas fa-check"></i>
+                  <span>Save</span>
+                </button>
+              </div>
+          </div>
+        </div>
+      </form>
+      </div>
+      </div>
+</div>

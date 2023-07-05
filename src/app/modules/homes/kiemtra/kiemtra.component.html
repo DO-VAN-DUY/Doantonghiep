@@ -1,0 +1,333 @@
+<div class="be-content">
+    <div class="page-head">
+       
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="row" style="padding:10px; border-width: 1px;">
+          <div class="col-12" >
+            <div class="page-title-box" >
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a [routerLink]="['/homes/chinhanh']" >Homes</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="['/homes/kiemtra']">kiemtra</a></li>
+                       
+                    </ol>
+                </div>
+               
+            </div>
+        </div>
+          </div>
+       <!-- <div style="padding:15px;">
+        <button type="button" class="btn btn-success" (click)="openModel()"><a style="color:white;" name="save">Thêm bản ghi </a></button>
+       </div> -->
+       <div class="col-md-12">
+      
+        <!-- Basic layout-->
+        <!-- <form  class="form-horizontal" (ngSubmit)="LoadData()">
+          <div class="panel panel-flat">
+            <div class="panel-heading">
+              <h5 class="panel-title" style="padding-left:10%;"><b>Lọc thông tin</b></h5>
+            </div>
+            <div class="panel-body">
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                  Tên nhân viên:
+                </label>
+                <div class="col-sm-12 col-md-7">
+                
+                  <input class="form-control" #hoten="ngModel" name="hoten" [(ngModel)]="kiemtra.hoten" type="search" placeholder="Nhập tên nhân viên cần tìm........" aria-label="Search"
+                  >
+                  
+               </div>   
+              
+            </div>
+            <button class="btn btn-success" type="submit" style="margin-left:20%;">Tìm kiếm</button>  
+            </div>
+          </div>
+        </form> -->
+        <!-- /basic layout -->
+      </div>
+        <!-- <div class="col-12 col-md-12 col-lg-12" style="text-align:right; color: black;">
+          <button type="button" class="btn btn-success" (click)="exportExcelcl()" style="margin-right:57%;"> Export Excel</button>
+          Hiển thị &nbsp;<label class="mr-3">
+          <select class="custom-select" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize" >
+          <option [ngValue]="1">1 </option>
+          <option [ngValue]="5">5 </option>
+          <option [ngValue]="8">8 </option>
+          <option [ngValue]="10">10 </option> 
+          <option [ngValue]="15">15 </option>
+      </select></label>
+        Tổng số &nbsp;<ins ng-bind="totalItems" class="text-info"></ins>&nbsp; bản ghi
+        
+        <div>
+          <ul class="navbar-nav mr-3">
+                
+            <li>
+                <form class="form-inline mr-auto">
+                    <div class="search-element">
+                        <input class="form-control" type="search" placeholder="Nhập thông tin tìm kiếm........" aria-label="Search"
+                         >
+                            &nbsp;&nbsp;
+                        <button class="btn btn-success" style="margin-top: -3px;" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
+            </li>
+        </ul>
+         </div>
+      </div> -->
+      <div class="col-12 col-md-12 col-lg-12" style="margin-top: 25px;height: 45px;">
+                  
+        <button type="button" class="btn btn-success" (click)="exportExcelcl()" style="margin-right:57%;"> Export Excel</button>
+        <div style="padding-left:60%; margin-top:-35px;">
+          <!-- <button type="button" class="btn btn-success" (click)="exportExcelcl()" style="margin-right:57%;"> Export Excel</button> -->
+         Hiển thị &nbsp;<label class="mr-3"><select class="custom-select" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+           <option [ngValue]="1">1 </option>
+           <option [ngValue]="5">5 </option>
+           <option [ngValue]="8">8 </option>
+           <option [ngValue]="10">10 </option> 
+           <option [ngValue]="15">15 </option>
+       </select></label>
+         Tổng số &nbsp;<ins ng-bind="totalItems" class="text-info"></ins>&nbsp; bản ghi
+         
+         <!-- <input type="text"  [(ngModel)]="filterBy" style="border:none;width:200px;"placeholder="Tìm kiếm theo tên..."> &nbsp; -->
+         
+        </div>
+        <div style="padding-left:78%; margin-top:-45px;">
+         <ul class="navbar-nav mr-3">
+               
+           <li>
+               <form class="form-inline mr-auto" (ngSubmit)="LoadData()">
+                   <div class="search-element">
+                       <input class="form-control" #hoten="ngModel" name="hoten" [(ngModel)]="kiemtra.hoten" type="search" placeholder="Nhập thông tin tìm kiếm........" aria-label="Search"
+                        >
+                           &nbsp;&nbsp;
+                       <button class="btn btn-success" style="margin-top: -3px;" type="submit">
+                           <i class="fas fa-search"></i>
+                       </button>
+                   </div>
+               </form>
+           </li>
+       </ul>
+        </div>
+       
+         </div>
+    </div>
+    <div class="idin-content container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-header">
+                    </div>
+
+                    <div class="card-body">
+                        <table class="table table-striped table-hover table-fw-widget" id="Exportcl">
+                            <thead>
+                                <tr style="background-color: aquamarine;">
+                                    <th>STT</th>
+                                    <th>Tên nhân viên</th>
+                                  
+                                    <th>Ngày</th>
+                                 
+                                    <th>Thời gian vào</th>
+                                    <th>Thời gian ra</th>
+                                    <th>Tổng giờ làm</th>
+                                  
+                                    <th>Lý do vào muộn </th>
+                                    <th>Lý do ra sớm</th>
+                                 
+                                    
+                                    <th>Hợp lệ</th>
+                                    
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let it of list_item ; let i= index">
+                                  <td>{{++i+1}}</td>
+                                    <td>{{it.hoten}}</td>
+                                    <td>{{it.ngay | date:'dd/MM/YYYY'}}</td>
+                                  
+                                    <td>{{it.giovao |date : "mediumTime" }}</td>
+                                    <td>{{it.giora | date : "mediumTime" }}</td>
+                                    <td>{{it.sogio}}</td>
+                                    <td>{{it.lydovaomuon | slice:0:20}}</td>
+                                    <td>{{it.lydorasom | slice:0:20}}</td>
+                                    
+                                    <td>
+                                       
+                                            <span *ngIf="it.hople==1"><i class="fa fa-check-square-o" aria-hidden="true" style="font-size:17px;color:rgb(216, 192, 13)"></i></span>
+                                        
+                                            <span *ngIf="it.hople==0"><i class="fa fa-check-square-o" aria-hidden="true" style="font-size:17px;color:green"></i></span>
+                                       
+                                            <span *ngIf="it.hople==-1"><i class="fa fa-window-close" aria-hidden="true" style="font-size:15px;"></i></span>
+                                      
+                                    </td>
+                                    
+                                    <td>
+                                        <!-- <button data-toggle="modal" data-target=".bd-example-modal-lg" title="Sửa" (click)="EditModel(it)"
+                                        class="btn btn-icon btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                        </button> -->
+                                        <button title="Xóa" (click)="DeleteModel(it.id)" style="color: #fff" class="btn btn-icon btn-warning">
+                                        <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-between p-2">
+                          <ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+                          </ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="largeModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" *ngIf="!isEdit"><span>Thêm công ngày</span></h5>
+          <h5 class="modal-title" *ngIf="isEdit"><span>Sửa công ngày</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+                <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                    Tên nhân viên<span style="color:red ;">*</span>:
+                    </label>
+                    <div class="col-sm-12 col-md-7">
+                    <select class="form-control" #idnv="ngModel" name="idnv" [(ngModel)]="kiemtra.idnv" required>
+                      <option value="">--Chọn tên nhân viên--</option>  
+                      <option *ngFor="let it of list_nhanvien" value="{{it.id}}">{{it.name}}</option>
+                      <small *ngIf="!idnv?.valid && (idnv?.dirty||idnv.touched)"class="help-block">Tên nhân viên không hợp lệ !</small>
+                    </select>
+                </div>
+             </div>
+          <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+             Ngày<span style="color:red ;">*</span>:
+              </label>
+              <div class="col-sm-12 col-md-7">
+                <input type="date" class="form-control"  placeholder="Nhập ngày làm việc..."  [(ngModel)]="kiemtra.ngay" name="ngay"  required>
+                <div class="invalid-feedback">
+                    Vui lòng nhập ngày!
+                </div>
+              </div>
+          </div>
+          <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+            Giờ vào<span style="color:red ;">*</span>:
+            </label>
+            <div class="col-sm-12 col-md-7">
+              <input type="datetime" class="form-control"  placeholder="Nhập giờ vào..." [(ngModel)]="kiemtra.giovao" name="giovao"  required>
+              <div class="invalid-feedback">
+                  Vui lòng nhập giờ vào!
+              </div>
+            </div>
+        </div>
+          <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                Giờ ra<span style="color:red ;">*</span>:
+                </label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="datetime" class="form-control"  placeholder="Nhập giờ ra..." [(ngModel)]="kiemtra.giora"  name="giora"
+                    required>
+                  <div class="invalid-feedback">
+                    Vui lòng nhập giờ ra!
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+               Tháng<span style="color:red ;">*</span>:
+                </label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="datetime" class="form-control"  placeholder="Nhập tháng hiện tại..." [(ngModel)]="kiemtra.thang" name="thang"  required>
+                  <div class="invalid-feedback">
+                      Vui lòng nhập tháng!
+                  </div>
+                </div>
+            </div> -->
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+              Lý do vào muộn
+              </label>
+              <div class="col-sm-12 col-md-7">
+                <!-- <input type="text" class="form-control"  placeholder="Nhập lý do vào muộn..." [(ngModel)]="kiemtra.lydovaomuon" name="lydovaomuon"  required> -->
+                <ckeditor [editor]="editor" [(ngModel)]="kiemtra.lydovaomuon" name="lydovaomuon"></ckeditor>
+                <div class="invalid-feedback">
+                    Vui lòng nhập lý do vào muộn!
+                </div>
+              </div>
+          </div>
+          <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+         Trạng thái vào muộn<span style="color:red ;">*</span>:
+            </label>
+            <div class="col-sm-12 col-md-7">
+              <input type="number" class="form-control"  placeholder="Nhập trạng thái vào muộn..." [(ngModel)]="kiemtra.trangthaivaomuon" name="trangthaivaomuon"  required>
+              <div class="invalid-feedback">
+                  Vui lòng nhập trạng thái!
+              </div>
+            </div>
+        </div>
+        <div class="form-group row mb-4">
+          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+          Lý do ra sớm
+          </label>
+          <div class="col-sm-12 col-md-7">
+            <!-- <input type="text" class="form-control"  placeholder="Nhập lý do ra sớm..." [(ngModel)]="kiemtra.lydorasom" name="lydorasom"  required> -->
+            <ckeditor [editor]="editors" [(ngModel)]="kiemtra.lydorasom" name="lydorasom"></ckeditor>
+            <div class="invalid-feedback">
+                Vui lòng nhập lý do!
+            </div>
+          </div>
+      </div>
+      <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+        Trạng thái ra sớm<span style="color:red ;">*</span>:
+        </label>
+        <div class="col-sm-12 col-md-7">
+          <input type="number" class="form-control"  placeholder="Nhập trạng thái ra sớm..." [(ngModel)]="kiemtra.trangthairasom" name="trangthairasom" required>
+          <div class="invalid-feedback">
+              Vui lòng nhập trạng thái!
+          </div>
+        </div>
+       </div>
+       <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+        Hợp lệ<span style="color:red ;">*</span>:
+        </label>
+        <div class="col-sm-12 col-md-7">
+          <input type="number" class="form-control"  [(ngModel)]="kiemtra.hople" name="hople" required>
+          <div class="invalid-feedback">
+              Vui lòng nhập trạng thái!
+          </div>
+        </div>
+       </div>
+            <div class="text-right">
+             
+                <button type="button" class="btn btn-secondary" (click)="closeModalsss()" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-icon icon-left btn-success" (click)="closeModal()">Escape</button> -->
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                &nbsp;
+              <button class="btn btn-icon icon-left btn-success"*ngIf="!isEdit" (click)="addkiemtra()" id="btnSubmit" >
+                <i class="fas fa-check"></i>
+                <span>Saves</span>
+              </button>
+              <button class="btn btn-icon icon-left btn-success" *ngIf="isEdit" (click)="Editkiemtra()" id="btnSubmit" >
+                <i class="fas fa-check"></i>
+                <span>Save</span>
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+    </div>

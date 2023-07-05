@@ -1,0 +1,151 @@
+
+
+.menu>ul>li {
+    display: inline-block;
+    position: relative;
+}
+
+.menu>ul>li>a {
+    padding: 10px 10px;
+    display: inline-block;
+}
+
+
+
+
+.menu li:hover .hi {
+    z-index: 1;
+    opacity: 1;
+}
+
+.hi {
+    width: 200%;
+    padding: 5px 0px;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity linear 0.15s;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.hi li {
+    display: block;
+}
+
+.hi li a {
+    padding: 10px 30px;
+    display: block;
+}
+
+.hi li a:hover,
+.hi .current-item a {
+    background:#337ab7;
+    
+}
+
+a {
+    color:#111;
+    text-decoration: none;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.menu>ul>li>ul>li:hover .hihi {
+    z-index: 1;
+    opacity: 1;
+    background:#337ab7;
+    margin-left: 55px;
+}
+
+.menu>ul>li>ul>li:hover .hihi a {
+    color: white;
+}
+
+.hihi {
+    width: 200%;
+    padding: 10px 0px;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity linear 0.15s;
+   }
+
+.hihi li {
+    display: block;
+}
+
+.hihi li a {
+    padding: 5px 10px;
+    display: block;
+}
+
+.hihi u:hover {
+    display: inline-block;
+}
+
+.hihi li a:hover,
+.hihi .current-item a {
+    background: #66CDAA;
+    color: white;
+    display: relative;
+}
+
+* {
+    box-sizing: border-box;
+  }
+
+  form.example input[type=text] {
+    padding: 3px;
+    font-size: 13px;
+    border: 1px solid rgb(221, 216, 216);
+    float: left;
+    width: 80%;
+    background: #fffbfb;
+  }
+  
+  form.example button {
+    float: left;
+    width: 20%;
+    padding: 3px;
+    background: #2e90e0;
+    color: white;
+    font-size: 17px;
+    border: 1px solid rgb(221, 216, 216);
+    border-left: none;
+    cursor: pointer;
+  }
+  
+  form.example button:hover {
+    background: #0b7dda;
+  }
+  
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+ li{
+    padding-top: 10px;
+}
+.nav-item
+{
+    list-style-type: none;
+}
+
+ .nav-item:hover {
+    background-color: rgb(34, 181, 181);
+} 
+
+a.nav-link.collapsed::after{
+    color: #111;
+}
+
+
+.bg-gradient-primary
+{
+   
+   background-image: linear-gradient(300deg,#fff 10%,#fff 100%);
+}
+
